@@ -6,8 +6,9 @@ git clone https://github.com/Kolad2/war3-lua-table.git table
 ```
 
 Текущий программный интерфейс - API
-```
- ---insert
+```lua
+    table = {}
+    ---insert
     ---@param tbl table
     ---@param pos number
     ---@param value table
