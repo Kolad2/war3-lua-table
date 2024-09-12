@@ -1,13 +1,14 @@
-# Раширенная библитека таблиц. 
+# Раширенная библитека таблиц
+Данная библитека table расширяет 
+возможности текущей версии одноименной библеотеки в Warcraft 3 reforged.
 
-Библитека написанна для Warcraft 3 reforged.
 
 Клонируйте репозиторий в свой проект:
 ```cmd
 git clone https://github.com/Kolad2/war3-lua-table.git table
 ```
 
-На данный момент Warcraft 3 в lua библитеке table по умолчанию присутствуют следующие ключи
+На данный момент Warcraft 3 reforged 1.36 в lua библитеке table по умолчанию присутствуют следующие ключи:
 ```lua
 table = {"unpack", "insert", "pack", "sort", "concat", "move", "remove", "unpack"}
 ```
@@ -79,7 +80,7 @@ function table.argmax(tbl) end
 function table.argmin(tbl) end
 ```
 
-# Связанные и полезные источники:
+# Связанные и полезные источники
 - xlua https://github.com/torch/xlua/tree/master
 - lua-set https://github.com/wscherphof/lua-set/tree/master
 - LuaSortingAlgorithms https://github.com/DervexDev/LuaSortingAlgorithms
