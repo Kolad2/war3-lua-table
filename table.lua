@@ -63,6 +63,10 @@ do -- table library: require "sorts"
     ---@param tbl table
     ---@return table
     function table.argmin(tbl) end
+    ---is_sorted
+    ---@param tbl table
+    ---@return boolean
+    function table.is_sorted(tbl) end
     -------------- Planning -----------------------------------
     -- sort = function(tbl, f, method) end -- "require sorts"
     --@param tbl table
@@ -242,8 +246,17 @@ do -- table library: require "sorts"
                 tbl_copy[key] = value
             end
         end
-            return tbl_copy
+        return tbl_copy
+    end
+
+    function table.is_sorted(tbl)
+        for i = 2, #tbl do
+            if tbl[i - 1] >= tbl[i] then
+                return false
+            end
         end
+        return true
+    end
 
     for key, _ in pairs(existing_table) do
         table[key] = existing_table[key]
