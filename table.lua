@@ -10,7 +10,7 @@ do -- table library: require "sorts"
     ---@param tbl table
     ---@param start_pos number
     ---@param end_pos number
-    function table.unpack(tbl, start_pos, end_pos)
+    function table.unpack(tbl, start_pos, end_pos) end
     ---tostring
     ---@param tbl table|number
     function table.tostring(tbl) end
