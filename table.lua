@@ -158,7 +158,7 @@ do -- table library: require "sorts"
     end
 
     function table.max(tbl)
-        len = #tbl
+        local len = #tbl
         if len == 0 then return nil end
         if len == 1 then return tbl[1] end
         local max = tbl[1]
@@ -169,7 +169,7 @@ do -- table library: require "sorts"
     end
 
     function table.min(tbl)
-        len = #tbl
+        local len = #tbl
         if len == 0 then return nil end
         if len == 1 then return tbl[1] end
         local min = tbl[1]
@@ -180,7 +180,7 @@ do -- table library: require "sorts"
     end
 
     function table.argmax(tbl)
-        len = #tbl
+        local len = #tbl
         if len == 0 then return nil end
         if len == 1 then return 1 end
         local idx = 1
@@ -191,7 +191,7 @@ do -- table library: require "sorts"
     end
 
     function table.argmin(tbl)
-        len = #tbl
+        local len = #tbl
         if len == 0 then return nil end
         if len == 1 then return 1 end
         local idx = 1
