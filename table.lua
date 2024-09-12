@@ -1,8 +1,11 @@
+do
+    table = table or {}
 
-
-function table_create()
-    local table = {}
-
+    ---insert
+    ---@param tbl table
+    ---@param pos number
+    ---@param value number
+    ---@return table
     function table.insert(tbl, pos, value)
         -- Определяем, передано ли значение или только позиция
         if value == nil then
@@ -23,6 +26,7 @@ function table_create()
         return tbl
     end
 
+
     function table.unpack(tbl, start_pos, end_pos)
         start_pos = start_pos or 1
         end_pos = end_pos or #tbl
@@ -31,10 +35,15 @@ function table_create()
         end
     end
 
+    ---pack
+    ---@return table
     function table.pack(...)
         return { ... }
     end
 
+    ---tostring
+    ---@param tbl table
+    ---@return table
     function table.tostring(tbl)
         if tbl == nil then return nil end
         if type(tbl) ~= "table" then return tostring(tbl) end
@@ -49,20 +58,29 @@ function table_create()
         return str
     end
 
+    ---remove
+    ---@param tbl table
+    ---@return table
     function table.remove(tbl)
         local item = tbl[#tbl]
         tbl[#tbl] = nil
         return item
     end
 
-    -- алгоритм случайного тасования Дурштенфельда
+    ---shuffle
+    ---@param tbl table
+    ---@return table
     function table.shuffle(tbl)
+        -- алгоритм случайного тасования Дурштенфельда
         for i = #tbl, 2, -1 do
             local j = math.random(1, i)
             tbl[i], tbl[j] = tbl[j], tbl[i]
         end
     end
 
+    ---reverse
+    ---@param tbl table
+    ---@return table
     function table.reverse(tbl)
         if #tbl <= 1 then return end
         local n = math.floor(#tbl/2)
@@ -71,6 +89,9 @@ function table_create()
         end
     end
 
+    ---sum
+    ---@param tbl table
+    ---@return number
     function table.sum(tbl)
         local sum = 0
         for i=1, #tbl do
@@ -79,6 +100,9 @@ function table_create()
         return sum
     end
 
+    ---cumsum
+    ---@param tbl table
+    ---@return table
     function table.cumsum(tbl)
         local cs = {}
         local sum = 0
@@ -89,6 +113,9 @@ function table_create()
         return cs
     end
 
+    ---max
+    ---@param tbl table
+    ---@return table
     function table.max(tbl)
         local len = #tbl
         if len == 0 then return nil end
@@ -100,6 +127,9 @@ function table_create()
         return max
     end
 
+    ---min
+    ---@param tbl table
+    ---@return table
     function table.min(tbl)
         local len = #tbl
         if len == 0 then return nil end
@@ -111,6 +141,9 @@ function table_create()
         return min
     end
 
+    ---argmax
+    ---@param tbl table
+    ---@return table
     function table.argmax(tbl)
         local len = #tbl
         if len == 0 then return nil end
@@ -122,6 +155,9 @@ function table_create()
         return idx
     end
 
+    ---argmin
+    ---@param tbl table
+    ---@return table
     function table.argmin(tbl)
         local len = #tbl
         if len == 0 then return nil end
@@ -133,18 +169,31 @@ function table_create()
         return idx
     end
 
+    ---multiply
+    ---@param tbl table
+    ---@param val number
+    ---@return table
     function table.multiply(tbl, val)
         for i=1, #tbl do
             tbl[i] = tbl[i] * val
         end
     end
 
+    ---divide
+    ---@param tbl table
+    ---@param val number
+    ---@return table
     function table.divide(tbl, val)
         for i=1, #tbl do
             tbl[i] = tbl[i] / val
         end
+        return tbl
     end
 
+    ---slice
+    ---@param tbl table
+    ---@param pos_start number
+    ---@param pos_end number
     function table.slice(tbl, pos_start, pos_end)
         local slice = {}
         local length = pos_end - pos_start + 1
@@ -155,6 +204,9 @@ function table_create()
         return slice
     end
 
+    ---copy
+    ---@param tbl table
+    ---@return table
     function table.copy(tbl)
         local tbl_copy = {}
         for key, value in pairs(tbl) do
@@ -167,6 +219,9 @@ function table_create()
         return tbl_copy
     end
 
+    ---is_sorted
+    ---@param tbl table
+    ---@return boolean
     function table.is_sorted(tbl)
         for i = 2, #tbl do
             if tbl[i - 1] >= tbl[i] then
@@ -176,19 +231,28 @@ function table_create()
         return true
     end
 
-
+    ---move
+    ---@param tbl table
+    ---@param pos_start number
+    ---@param pos_end number
+    ---@param tbl_to table|number
+    ---@param pos_to number|nil
     function table.move(tbl, pos_start, pos_end, tbl_to, pos_to)
-        if type(tbl_to) ~= "table" then
-            tbl_to = tbl
+        if type(tbl_to) == "number" then
             pos_to = tbl_to
+            tbl_to = tbl
         end
-
-        t = t + e
-
-        for i = pos_start, pos_end, -1 do
-            a2[t] = a1[i]
+        pos_to = pos_to or 1
+        local offset = pos_to - pos_start -- перекрытие регионов
+        if offset > 0 then
+            for i = pos_end, pos_start, -1 do
+                tbl_to[i + offset] = tbl[i]
+            end
+        else
+            for i = pos_start, pos_end do
+                tbl_to[i + offset] = tbl[i]
+            end
         end
-
         return tbl_to
     end
 end
