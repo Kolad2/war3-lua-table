@@ -16,68 +16,95 @@ table = {"unpack", "insert", "pack", "sort", "concat", "move", "remove", "unpack
 
 # Текущий программный интерфейс - API
 ```lua
-table = table or {}
 ---insert
 ---@param tbl table
 ---@param pos number
 ---@param value table
 function table.insert(tbl, pos, value) end
+
 ---unpack
 ---@param tbl table
 ---@param i number
 ---@param n number
 function table.unpack(tbl, i, n) end
+
 ---tostring
 ---@param tbl table|number
 function table.tostring(tbl) end
+
 ---remove
 ---@param tbl table
 function table.remove(tbl) end
+
 ---shuffle
 ---@param tbl table
 function table.shuffle(tbl) end
+
 ---reverse
 ---@param tbl table
 function table.reverse(tbl) end
+
 ---sum
 ---@param tbl table
 function table.sum(tbl) end
+
 ---cumsum
 ---@param tbl table
 function table.cumsum(tbl) end
+
 ---max
 ---@param tbl table
 function table.max(tbl) end
+
 ---min
 ---@param tbl table
 function table.min(tbl) end
+
+---argmax
+---@param tbl table
+---@return number
+function table.argmax(tbl) end
+
+---argmin
+---@param tbl table
+---@return table
+function table.argmin(tbl) end
+
 ---divide
 ---@param tbl table
 ---@param val number
 ---@return table
 function table.divide(tbl, val) end
+
 ---multiply
 ---@param tbl table
 ---@param val number
 function table.multiply(tbl, val) end
+
 ---splice
 ---@param tbl table
 ---@param pos_start number
 ---@param pos_end number
 ---@return table
 function table.slice(tbl, pos_start, pos_end) end
+
 ---copy
 ---@param tbl table|number
 ---@return table
 function table.copy(tbl) end
----argmax
+
+---is_sorted
 ---@param tbl table
----@return number
-function table.argmax(tbl) end
----argmin
+---@return boolean
+function table.is_sorted(tbl) end
+
+---move
 ---@param tbl table
----@return table
-function table.argmin(tbl) end
+---@param pos_start number
+---@param pos_end number
+---@param tbl_to table|number
+---@param pos_to number|nil
+function table.move(tbl, pos_start, pos_end, tbl_to, pos_to) end
 ```
 
 # Использованные источники

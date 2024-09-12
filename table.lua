@@ -26,7 +26,11 @@ do
         return tbl
     end
 
-
+    ---unpack
+    ---@param tbl table
+    ---@param start_pos number
+    ---@param end_pos number
+    ---@return table
     function table.unpack(tbl, start_pos, end_pos)
         start_pos = start_pos or 1
         end_pos = end_pos or #tbl
@@ -255,4 +259,8 @@ do
         end
         return tbl_to
     end
+
+
+    
+
 end

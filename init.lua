@@ -1,6 +1,4 @@
 do
-    if require then require(".table") end
-
     table = table or {}
     ----------------- API ----------------------------------------
     ---insert
@@ -91,35 +89,21 @@ do
     ---@param tbl table
     ---@return table
     function table.argmin(tbl) end
-
-    ---is_sorted
+    -------------------- Planning -----------------------------------
+    -- sort = function(tbl, f, method) end -- "require sorts"
     ---@param tbl table
     ---@return boolean
-    function table.is_sorted(tbl) end
-
-    ---move
-    ---@param tbl table
-    ---@param pos_start number
-    ---@param pos_end number
-    ---@param tbl_to table|number
-    ---@param pos_to number|nil
-    function table.move(tbl, pos_start, pos_end, tbl_to, pos_to) end
-    -------------------- Planning -----------------------------------
-
-    -- sort = function(tbl, f, method) end -- "require sorts"
-    --@param tbl table
-    --@return boolean
-    -- table.any = function(tbl)  end
+    table.any = function(tbl) end
     --@param tbl table
     --@return boolean
     -- table.all = function(tbl)  end
     -- table.mean
     -- table.getn
     -- swap
-    ------------- maybe planning -------------------------------
+    ------------- maybe planning ------------------------------------
     -- function table.get_random(tbl) end
     -- function table.swap(tbl, i, j)
     -- table.remove_swap_back(tbl)
     -- table.insert_swap_back(tbl, i)
-    -------------------------------------------------------------
+    -----------------------------------------------------------------
 end
