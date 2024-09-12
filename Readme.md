@@ -80,10 +80,18 @@ function table.argmax(tbl) end
 function table.argmin(tbl) end
 ```
 
-# Связанные и полезные источники
-- xlua https://github.com/torch/xlua/tree/master
+# Использованные источники
+- [lua-table](https://github.com/Luca96/lua-table/tree/master) - база функций расширяющих стандартный набор
+table c добавлением дополнительных свойств.
+- [t-util](https://github.com/loominatrx/t-util/tree/main) - база функций расширяющих стандартный набор.
+- [xlua](https://github.com/torch/xlua/tree/master) - база функций расширяющих стандартный набор.
+
+# Полезные источники
 - lua-set https://github.com/wscherphof/lua-set/tree/master
-- LuaSortingAlgorithms https://github.com/DervexDev/LuaSortingAlgorithms
-- cheapack https://github.com/nazarpunk/cheapack
+- [LuaSortingAlgorithms](https://github.com/DervexDev/LuaSortingAlgorithms) - 
+репозиторий конвертированных из python алгоритмов сортировки.
+- [cheapack](https://github.com/nazarpunk/cheapack) - 
+совсем не дешевый упаковщик *.lua файлов в *.wct файл Warcraft 3.
 - imp-lua-mm https://github.com/Indaxia/imp-lua-mm
-- luaforwindows https://github.com/rjpcomputing/luaforwindows
+- [luaforwindows](https://github.com/rjpcomputing/luaforwindows) - 
+репозиторий хранящий Lua.exe файл для windows

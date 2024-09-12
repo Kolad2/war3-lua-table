@@ -1,91 +1,6 @@
-do -- table library: require "sorts"
-    table = table or {}
-    local existing_table = table
-    ----------------- API ----------------------------------------
-    ---insert
-    ---@param tbl table
-    ---@param pos number
-    ---@param value number
-    function table.insert(tbl, pos, value) end
-    ---unpack
-    ---@param tbl table
-    ---@param start_pos number
-    ---@param end_pos number
-    function table.unpack(tbl, start_pos, end_pos) end
-    ---tostring
-    ---@param tbl table|number
-    function table.tostring(tbl) end
-    ---remove
-    ---@param tbl table
-    function table.remove(tbl) end
-    ---shuffle
-    ---@param tbl table
-    function table.shuffle(tbl) end
-    ---reverse
-    ---@param tbl table
-    function table.reverse(tbl) end
-    ---sum
-    ---@param tbl table
-    function table.sum(tbl) end
-    ---cumsum
-    ---@param tbl table
-    function table.cumsum(tbl) end
-    ---max
-    ---@param tbl table
-    function table.max(tbl) end
-    ---min
-    ---@param tbl table
-    function table.min(tbl) end
-    ---divide
-    ---@param tbl table
-    ---@param val number
-    ---@return table
-    function table.divide(tbl, val) end
-    ---multiply
-    ---@param tbl table
-    ---@param val number
-    function table.multiply(tbl, val) end
-    ---splice
-    ---@param tbl table
-    ---@param pos_start number
-    ---@param pos_end number
-    ---@return table
-    function table.slice(tbl, pos_start, pos_end) end
-    ---copy
-    ---@param tbl table|number
-    ---@return table
-    function table.copy(tbl) end
-    ---argmax
-    ---@param tbl table
-    ---@return number
-    function table.argmax(tbl) end
-    ---argmin
-    ---@param tbl table
-    ---@return table
-    function table.argmin(tbl) end
-    ---is_sorted
-    ---@param tbl table
-    ---@return boolean
-    function table.is_sorted(tbl) end
-    -------------- Planning -----------------------------------
-    -- sort = function(tbl, f, method) end -- "require sorts"
-    --@param tbl table
-    --@return boolean
-    -- table.any = function(tbl)  end
-    --@param tbl table
-    --@return boolean
-    -- table.all = function(tbl)  end
-    -- table.mean
-    -- table.getn
-    -- pack
-    -- move
-    -- swap
-    ------------- maybe planning -------------------------------
-    -- function table.get_random(tbl) end
-    -- function table.swap(tbl, i, j)
-    -- table.remove_swap_back(tbl)
-    -- table.insert_swap_back(tbl, i)
-    -------------------------------------------------------------
+function table_create()
+    local table = {}
+
     function table.insert(tbl, pos, value)
         -- Определяем, передано ли значение или только позиция
         if value == nil then
@@ -101,8 +16,9 @@ do -- table library: require "sorts"
         for i = #tbl, pos, -1 do
             tbl[i + 1] = tbl[i]
         end
-    -- Вставляем значение на позицию pos
+        -- Вставляем значение на позицию pos
         tbl[pos] = value
+        return tbl
     end
 
     function table.unpack(tbl, start_pos, end_pos)
@@ -258,7 +174,19 @@ do -- table library: require "sorts"
         return true
     end
 
-    for key, _ in pairs(existing_table) do
-        table[key] = existing_table[key]
+
+    function table.move(tbl, pos_start, pos_end, tbl_to, pos_to)
+        if type(tbl_to) ~= "table" then
+            tbl_to = tbl
+            pos_to = tbl_to
+        end
+
+        t = t + e
+
+        for i = pos_start, pos_end, -1 do
+            a2[t] = a1[i]
+        end
+
+        return tbl_to
     end
 end
