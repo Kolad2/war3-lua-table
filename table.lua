@@ -4,13 +4,13 @@ do -- table library: require "sorts"
     ---insert
     ---@param tbl table
     ---@param pos number
-    ---@param value table
+    ---@param value number
     function table.insert(tbl, pos, value) end
     ---unpack
     ---@param tbl table
-    ---@param i number
-    ---@param n number
-    function table.unpack(tbl, i, n) end
+    ---@param start_pos number
+    ---@param end_pos number
+    function table.unpack(tbl, start_pos, end_pos)
     ---tostring
     ---@param tbl table|number
     function table.tostring(tbl) end
@@ -95,11 +95,11 @@ do -- table library: require "sorts"
         tbl[pos] = value
     end
 
-    function table.unpack(tbl, i, n)
-        i = i or 1
-        n = n or #tbl
-        if i <= n then
-            return tbl[i], table.unpack(tbl, i + 1, n)
+    function table.unpack(tbl, start_pos, end_pos)
+        start_pos = start_pos or 1
+        end_pos = end_pos or #tbl
+        if start_pos <= end_pos then
+            return tbl[i], table.unpack(tbl, start_pos + 1, end_pos)
         end
     end
 
