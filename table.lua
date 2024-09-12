@@ -1,6 +1,6 @@
 do -- table library: require "sorts"
     ----------------- API ------------------------------
-    table = {}
+    table = table or {}
     ---insert
     ---@param tbl table
     ---@param pos number
@@ -12,7 +12,7 @@ do -- table library: require "sorts"
     ---@param n number
     function table.unpack(tbl, i, n) end
     ---tostring
-    ---@param tbl table
+    ---@param tbl table|number
     function table.tostring(tbl) end
     ---remove
     ---@param tbl table
@@ -49,23 +49,31 @@ do -- table library: require "sorts"
     ---@param pos_start number
     ---@param pos_end number
     ---@return table
-    function table.splice(tbl, pos_start, pos_end) end
+    function table.slice(tbl, pos_start, pos_end) end
+    ---copy
+    ---@param tbl table|number
+    ---@return table
+    function table.copy(tbl) end
+    ---argmax
+    ---@param tbl table
+    ---@return number
+    function table.argmax(tbl) end
+    ---argmin
+    ---@param tbl table
+    ---@return table
+    function table.argmin(tbl) end
     -------------- Planning -----------------------------------
     -- sort = function(tbl, f, method) end -- "require sorts"
     -- table.any -- boolean
     -- table.all -- boolean
-    -- table.copy
     -- table.mean
     -- table.getn
-    -- table.argmax
-    -- table.argmin
     ------------- maybe planning -------------------------------
     -- function table.get_random(tbl) end
     -- function table.swap(tbl, i, j)
     -- table.remove_swap_back(tbl)
     -- table.insert_swap_back(tbl, i)
     -------------------------------------------------------------
-
     function table.insert(tbl, pos, value)
         -- Определяем, передано ли значение или только позиция
         if value == nil then
@@ -95,14 +103,15 @@ do -- table library: require "sorts"
         end
     end
 
-    function table.tostring(array)
-        if array == nil then return nil end
+    function table.tostring(tbl)
+        if tbl == nil then return nil end
+        if type(tbl) ~= "table" then return tostring(tbl) end
         local str = "{"
-        if #array == 0 then return str .. "}" end
-        if #array == 1 then return str .. tostring(array[1]) .. "}" end
-        str = str .. tostring(array[1])
-        for i=2, #array do
-            str = str .. "," .. tostring(array[i])
+        if #tbl == 0 then return str .. "}" end
+        if #tbl == 1 then return str .. table.tostring(tbl[1]) .. "}" end
+        str = str .. table.tostring(tbl[1])
+        for i=2, #tbl do
+            str = str .. "," .. table.tostring(tbl[i])
         end
         str = str .. "}"
         return str
@@ -170,6 +179,28 @@ do -- table library: require "sorts"
         return min
     end
 
+    function table.argmax(tbl)
+        len = #tbl
+        if len == 0 then return nil end
+        if len == 1 then return 1 end
+        local idx = 1
+        for i=2, #tbl do
+            if tbl[i] > tbl[idx] then idx = i end
+        end
+        return idx
+    end
+
+    function table.argmin(tbl)
+        len = #tbl
+        if len == 0 then return nil end
+        if len == 1 then return 1 end
+        local idx = 1
+        for i=2, #tbl do
+            if tbl[i] < tbl[idx] then idx = i end
+        end
+        return idx
+    end
+
     function table.multiply(tbl, val)
         for i=1, #tbl do
             tbl[i] = tbl[i] * val
@@ -191,4 +222,15 @@ do -- table library: require "sorts"
         end
     end
 
+    function table.copy(tbl)
+        local tbl_copy = {}
+        for key, value in pairs(tbl) do
+            if type(value) == "table" then
+                tbl_copy[key] = table.copy(value)
+            else
+                tbl_copy[key] = value
+            end
+        end
+        return tbl_copy
+    end
 end
