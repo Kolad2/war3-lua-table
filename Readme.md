@@ -31,8 +31,8 @@ function table.insert(tbl, pos, value) end
 
 ---unpack
 ---@param tbl table
----@param i number
----@param n number
+---@param start_pos number
+---@param end_pos number
 function table.unpack(tbl, start_pos, end_pos) end
 
 ---tostring
