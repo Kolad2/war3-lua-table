@@ -43,7 +43,7 @@ function table.tostring(tbl) end
 ---@param tbl table
 ---@param tbl number|nil
 ---@return any
-function table.remove(tbl, idx)
+function table.remove(tbl, idx) end
 
 ---shuffle
 ---@param tbl table
