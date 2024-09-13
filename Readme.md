@@ -33,7 +33,7 @@ function table.insert(tbl, pos, value) end
 ---@param tbl table
 ---@param i number
 ---@param n number
-function table.unpack(tbl, i, n) end
+function table.unpack(tbl, start_pos, end_pos) end
 
 ---tostring
 ---@param tbl table|number
