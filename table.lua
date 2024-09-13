@@ -65,6 +65,7 @@ do
 
     ---remove
     ---@param tbl table
+    ---@param tbl number|nil
     ---@return any
     table.remove = table.remove or function(tbl, idx)
         idx = idx or #tbl
@@ -263,4 +264,6 @@ do
         end
         return tbl_to
     end
+
+
 end

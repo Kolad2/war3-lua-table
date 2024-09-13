@@ -10,7 +10,7 @@ do
     ---insert
     ---@param tbl table
     ---@param pos number
-    ---@param value number
+    ---@param value number|nil
     ---@return table
     function table.insert(tbl, pos, value) end
 

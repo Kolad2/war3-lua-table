@@ -18,8 +18,15 @@ git clone https://github.com/Kolad2/war3-lua-table.git table
 ```lua
 ---insert
 ---@param tbl table
+---@param value number
+---@return table
+function table.insert(tbl, value) end
+
+---insert
+---@param tbl table
 ---@param pos number
----@param value table
+---@param value number|nil
+---@return table
 function table.insert(tbl, pos, value) end
 
 ---unpack
@@ -34,7 +41,9 @@ function table.tostring(tbl) end
 
 ---remove
 ---@param tbl table
-function table.remove(tbl) end
+---@param tbl number|nil
+---@return any
+function table.remove(tbl, idx)
 
 ---shuffle
 ---@param tbl table
