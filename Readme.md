@@ -1,38 +1,18 @@
 # Раширенная библитека таблиц
-Данная библитека table расширяет 
-возможности текущей версии одноименной библеотеки в Warcraft 3 reforged.
-
+Данная библитека table расширяет возможности текущей версии одноименной библеотеки в Warcraft 3 reforged.
+Warcraft 3 reforged 1.36 содержит в lua библитеки table по умолчанию следующие ключи:
+```lua
+table = {"unpack", "insert", "pack", "sort", "concat", "move", "remove", "unpack"}
+```
+Функции работают в соответствии с [мануалом](https://www.lua.org/manual/5.4/manual.html#6.6). 
+Список всех поддерживаемых функций библитеки репозитория расположен в разделе программного интерфейса - API.
 
 Клонируйте репозиторий в свой проект:
 ```cmd
 git clone https://github.com/Kolad2/war3-lua-table.git table
 ```
 
-На данный момент Warcraft 3 reforged 1.36 в lua библитеке table по умолчанию присутствуют следующие ключи:
-```lua
-table = {"unpack", "insert", "pack", "sort", "concat", "move", "remove", "unpack"}
-```
-В также нет перегрузки функции table.move()
 
-
-```lua
----move
----@param tbl table
----@param pos_start number
----@param pos_end number
----@param pos_to number
----@return table
-function table.move(tbl, pos_start, pos_end, pos_to) end -- есть в варкрате
-
----move
----@param tbl table
----@param pos_start number
----@param pos_end number
----@param tbl_to table|number
----@param pos_to number|nil
-function table.move(tbl, pos_start, pos_end, tbl_to, pos_to) end -- возможная перегрузка
-```
-Такая 
 
 # Текущий программный интерфейс - API
 ```lua

@@ -1,4 +1,5 @@
 do
+    --[[war3-lua-table (13.09.2024)]]--
     table = table or {}
 
     ---insert
@@ -64,9 +65,13 @@ do
 
     ---remove
     ---@param tbl table
-    ---@return table
-    function table.remove(tbl)
-        local item = tbl[#tbl]
+    ---@return any
+    table.remove = table.remove or function(tbl, idx)
+        idx = idx or #tbl
+        local item = tbl[idx]
+        for i = idx, #tbl - 1 do
+            tbl[i] = tbl[i + 1]
+        end
         tbl[#tbl] = nil
         return item
     end
