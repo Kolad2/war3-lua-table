@@ -12,7 +12,27 @@ git clone https://github.com/Kolad2/war3-lua-table.git table
 ```lua
 table = {"unpack", "insert", "pack", "sort", "concat", "move", "remove", "unpack"}
 ```
+В также нет перегрузки функции table.move()
 
+
+```lua
+---move
+---@param tbl table
+---@param pos_start number
+---@param pos_end number
+---@param pos_to number
+---@return table
+function table.move(tbl, pos_start, pos_end, pos_to) end -- есть в варкрате
+
+---move
+---@param tbl table
+---@param pos_start number
+---@param pos_end number
+---@param tbl_to table|number
+---@param pos_to number|nil
+function table.move(tbl, pos_start, pos_end, tbl_to, pos_to) end -- возможная перегрузка
+```
+Такая 
 
 # Текущий программный интерфейс - API
 ```lua
@@ -112,6 +132,7 @@ function table.move(tbl, pos_start, pos_end, tbl_to, pos_to) end
 table c добавлением дополнительных свойств.
 - [t-util](https://github.com/loominatrx/t-util/tree/main) - база функций расширяющих стандартный набор.
 - [xlua](https://github.com/torch/xlua/tree/master) - база функций расширяющих стандартный набор.
+- [table-manual](https://www.lua.org/manual/5.4/manual.html#6.6) - официальный мануал по таблицам
 
 # Полезные источники
 - lua-set https://github.com/wscherphof/lua-set/tree/master

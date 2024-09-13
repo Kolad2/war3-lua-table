@@ -239,14 +239,13 @@ do
     ---@param tbl table
     ---@param pos_start number
     ---@param pos_end number
-    ---@param tbl_to table|number
-    ---@param pos_to number|nil
-    function table.move(tbl, pos_start, pos_end, tbl_to, pos_to)
-        if type(tbl_to) == "number" then
-            pos_to = tbl_to
-            tbl_to = tbl
-        end
+    ---@param pos_to number
+    ---@param tbl_to table
+    ---@return table
+    function table.move(tbl, pos_start, pos_end,  pos_to, tbl_to)
+        tbl_to = tbl_to or nil
         pos_to = pos_to or 1
+        
         local offset = pos_to - pos_start -- перекрытие регионов
         if offset > 0 then
             for i = pos_end, pos_start, -1 do
@@ -259,8 +258,4 @@ do
         end
         return tbl_to
     end
-
-
-    
-
 end
