@@ -1,4 +1,5 @@
-# Раширенная библитека таблиц
+# Разширенная библитека таблиц table
+
 Данная библитека table расширяет возможности текущей версии одноименной библеотеки в Warcraft 3 reforged.
 Warcraft 3 reforged 1.36 содержит в lua библитеки table по умолчанию следующие ключи:
 ```lua
@@ -12,7 +13,7 @@ table = {"unpack", "insert", "pack", "sort", "concat", "move", "remove", "unpack
 git clone https://github.com/Kolad2/war3-lua-table.git table
 ```
 
-# Текущий программный интерфейс (API) модуля table
+## Текущий программный интерфейс (API) модуля table
 
 ```lua
 ---insert
@@ -114,6 +115,33 @@ function table.is_sorted(tbl) end
 ---@param pos_to number|nil
 function table.move(tbl, pos_start, pos_end, tbl_to, pos_to) end
 ```
+
+```
+git clone https://github.com/Kolad2/war3-lua-sorts.git sorts
+```
+
+
+# Модуль table.sorts
+
+Модуль является адаптацией [репозитория](https://github.com/DervexDev/LuaSortingAlgorithms)
+конвертированных из python алгоритмов сортировки. 
+
+Следующие алгоритмы поддерживают дробные числа:
+* Cycle Sort
+* Gnome Sort
+* Circle Sort
+* Cocktail Sort
+* Comb Sort
+* Bubble Sort
+* ShellSort
+* Stooge Sort
+* Heap Sort
+* Insertion Sort
+* Merge Sort
+* Pancake Sort
+* Pigeonhole Sort
+* Quick Sort
+* Bucket Sort - not recommended
 
 # Использованные источники
 - [lua-table](https://github.com/Luca96/lua-table/tree/master) - 
