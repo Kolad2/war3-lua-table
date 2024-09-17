@@ -15,7 +15,7 @@ do -- require "table"
 
 
     NDArray = {}
-
+    ---@type ndarray
     local object = {}
 
     function object:fill(value)
@@ -46,6 +46,7 @@ do -- require "table"
 
     local class = {}
 
+    ---@return ndarray
     function class:create(shape)
         local obj = {}
         obj.shape = shape
@@ -55,17 +56,19 @@ do -- require "table"
         return setmetatable(obj, object_meta)
     end
 
-    math.empty = math.empty or function()
+    local empty = math.empty or function()
         return nil
     end
 
-    -- private
+    ---emptify
+    ---@param ndarray table
+    ---@return table
     function class:emptify(ndarray)
         local shape = ndarray.shape
         local ndarray = ndarray
 
         if #shape == n then
-            return table.fill(ndarray, math.empty, shape[n])
+            return table.fill(ndarray, empty, shape[n])
         end
 
         local old_stack = {}
