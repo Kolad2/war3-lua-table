@@ -1,14 +1,14 @@
 do
     local table = table or {}
     table.sorts = table.sorts or {}
-    sorts = table.sorts
+    local sorts = table.sorts
 
     --included methods
     --[[bubble,  quick,      insertion, circle, cocktail,
         comb,    cycle,      gnome,     heap,   merge,
         pancake, pigeonhole, shell,     stooge]]--
 
-    --- gravity -- полезная сортировка
+    -- gravity -- полезная сортировка
 
     -- excluded
     --[[bogo, radix]]--
