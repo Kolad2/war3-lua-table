@@ -249,7 +249,7 @@ do
     ---@param tbl_to table
     ---@return table
     function table.move(tbl, pos_start, pos_end,  pos_to, tbl_to)
-        tbl_to = tbl_to or nil
+        tbl_to = tbl_to or tbl
         pos_to = pos_to or 1
         
         local offset = pos_to - pos_start -- перекрытие регионов
@@ -264,6 +264,24 @@ do
         end
         return tbl_to
     end
+
+    function table.fill(tbl, value, pos_start, pos_end)
+        if pos_end == nil then pos_start, pos_end = 1, pos_start or #tbl end
+        if type(value) == "number" then
+            for i = pos_start, pos_end do
+                tbl[i] = value
+            end
+        else
+            for i = pos_start, pos_end do
+                tbl[i] = value()
+            end
+        end
+    end
+
+    function table.empty()
+        return {}
+    end
+
 
 
 end

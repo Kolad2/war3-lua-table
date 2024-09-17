@@ -1,36 +1,10 @@
 do -- require "table"
-    local function create_nda(shape, n)
-        n = n or 1
-        local ndarray = {}
-        if #shape == n then return ndarray end
-        for i = 1, shape[n] do
-            ndarray[i] = create_nda(shape, n + 1)
-        end
-        return ndarray
-    end
-    
-    
-    local function fill_1da(array, len, value)
-        for i = 1, len do
-            array[i] = value()
-        end
-    end
-    
-    
-    local function fill_nda(array, shape, value, n)
-        n = n or 1
-        if #shape == n then fill_1da(array, shape[n], value) return end 
-        for i = 1, shape[n] do
-            fill_nda(array[i], shape, value, n + 1)
-        end
-    end
-    
-    
+
     local function tostring2d(ndarray)
         local _str = "{"
-        for i = 1, ndarray.shape[1] do
+        for i = 1, #ndarray do
             _str = _str .. table.tostring(ndarray[i])
-            if i < ndarray.shape[1] then
+            if i < #ndarray then
                 _str = _str .. ",\n "
             else
                 _str = _str .. "}"
@@ -38,46 +12,106 @@ do -- require "table"
         end
         return _str
     end
-    
-    
+
+
     NDArray = {}
-    function NDArray:fill(value)
-        if type(value) == "number" then func = function() return value end end
-        if type(value) == "table"  then func = function() return table.copy(value) end end
-        if type(value) == "function" then func = value end
-        fill_nda(self, self.shape, func)
+
+    local object = {}
+
+    function object:fill(value)
+        NDArray:fill_nda(self, self.shape, value)
         return self
     end
-    
-    function NDArray:tostring()
+
+    function object:tostring()
         if self.ndim == 1 then
             return table.tostring(self)
         end
         if self.ndim == 2 then
             return tostring2d(self)
         end
-        if self.ndim > 2 then
-            
+        if self.ndim == 3 then
+            local str = "{\n\n"
+            for i = 1, #self do
+                str = str .. tostring2d(self[i]) .. ",\n\n"
+            end
+            return str
         end
     end
-    
-    local meta = {
-        __index = NDArray,
-        __tostring = NDArray.tostring
+
+    local object_meta = {
+        __index = object,
+        __tostring = object.tostring
     }
-    
-    NDArray = {}
-    function NDArray.create(cls, shape)
-        local self = {}
-        self = create_nda(shape)
-        self.shape = shape
-        self.ndim = #self.shape
+
+    local class = {}
+
+    function class:create(shape)
+        local obj = {}
+        obj.shape = shape
+        obj.ndim = #obj.shape
+        self:emptify(obj)
         print("empty NDArray created")
-        return setmetatable(self, meta)
+        return setmetatable(obj, object_meta)
     end
-        
-    
+
+    math.empty = math.empty or function()
+        return nil
+    end
+
+    -- private
+    function class:emptify(ndarray)
+        local shape = ndarray.shape
+        local ndarray = ndarray
+
+        if #shape == n then
+            return table.fill(ndarray, math.empty, shape[n])
+        end
+
+        local old_stack = {}
+        local new_stack = {}
+        table.insert(old_stack, ndarray)
+        --
+        for n = 1, #shape - 1 do
+            for i, ndarray in ipairs(old_stack) do
+                table.fill(ndarray, table.empty, shape[n])
+                for j, item in ipairs(ndarray) do
+                    table.insert(new_stack, item)
+                end
+            end
+            old_stack = new_stack
+            new_stack = {}
+        end
+    end
+
+    function class:fill_nda(array, shape, value, n)
+        n = n or 1
+        if #shape == n then table.fill(array, value, shape[n]) return end
+        for i = 1, shape[n] do
+            self:fill_nda(array[i], shape, value, n + 1)
+        end
+    end
+
+    table = table or {}
+    function table.fill(tbl, value, pos_start, pos_end)
+        if pos_end == nil then pos_start, pos_end = 1, pos_start or #tbl end
+        if type(value) == "number" then
+            for i = pos_start, pos_end do
+                tbl[i] = value
+            end
+        else
+            for i = pos_start, pos_end do
+                tbl[i] = value()
+            end
+        end
+    end
+
+    function table.empty()
+        return {}
+    end
+
     NDArray = setmetatable(NDArray, {
-        __call = NDArray.create
+        __index = class,
+        __call = class.create
     })
 end
