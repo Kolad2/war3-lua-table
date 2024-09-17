@@ -13,9 +13,8 @@ do -- require "table"
         return _str
     end
 
-
     NDArray = {}
-    ---@type ndarray
+
     local object = {}
 
     function object:fill(value)
@@ -46,7 +45,6 @@ do -- require "table"
 
     local class = {}
 
-    ---@return ndarray
     function class:create(shape)
         local obj = {}
         obj.shape = shape
