@@ -8,10 +8,7 @@ do
     end
 
     function Grid:get_cell(x, y)
-        print("BDS, 3.1")
         local i, j = self:get_indices(x, y)
-        print("BDS, 3.2")
-        print(table.tostring(self.cells))
         return self.cells[j][i]
     end
 
@@ -67,8 +64,7 @@ do
             math.floor(grid.width  / grid.cell_width  + 1),
             math.floor(grid.height / grid.cell_height + 1)
         }
-        grid.cells = NDArray(grid.shape):fill({})
-        print("созданна сетка")
+        grid.cells = NDArray(grid.shape):fill(table.empty)
         return grid
     end
 

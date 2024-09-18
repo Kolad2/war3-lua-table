@@ -46,12 +46,10 @@ do -- require "table"
     local class = {}
 
     function class:create(shape)
-        print("Начало создания NDArray")
         local obj = {}
         obj.shape = shape
         obj.ndim = #obj.shape
         self:emptify(obj)
-        print("empty NDArray created")
         return setmetatable(obj, object_meta)
     end
 
