@@ -77,6 +77,20 @@ do
         return item
     end
 
+
+    ---remove_swap
+    ---@param tbl table
+    ---@param idx number
+    ---@return any
+    function table.remove_swap(tbl, idx)
+        idx = idx or #tbl
+        tbl[idx]  = tbl[#tbl]
+        local item = tbl[#idx]
+        tbl[#tbl] = nil
+        return item
+    end
+
+
     ---shuffle
     ---@param tbl table
     ---@return table
@@ -265,6 +279,11 @@ do
         return tbl_to
     end
 
+    ---fill
+    ---@param tbl table
+    ---@param value number
+    ---@param pos_start number
+    ---@param pos_end number
     function table.fill(tbl, value, pos_start, pos_end)
         if pos_end == nil then pos_start, pos_end = 1, pos_start or #tbl end
         if type(value) == "number" then
@@ -278,8 +297,8 @@ do
         end
     end
 
+    ---@return table
     function table.empty()
         return {}
     end
-
 end

@@ -45,6 +45,12 @@ function table.tostring(tbl) end
 ---@return any
 function table.remove(tbl, idx) end
 
+---remove_swap
+---@param tbl table
+---@param idx number
+---@return any
+function table.remove_swap(tbl, idx) end
+
 ---shuffle
 ---@param tbl table
 function table.shuffle(tbl) end
@@ -114,6 +120,16 @@ function table.is_sorted(tbl) end
 ---@param tbl_to table|number
 ---@param pos_to number|nil
 function table.move(tbl, pos_start, pos_end, tbl_to, pos_to) end
+
+---fill
+---@param tbl table
+---@param value number
+---@param pos_start number
+---@param pos_end number
+function table.fill(tbl, value, pos_start, pos_end) end
+
+---@return table
+function table.empty() end
 ```
 
 ```
