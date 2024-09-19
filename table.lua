@@ -349,14 +349,13 @@ do
         --
         local k = 1
         for i = 1, #tbls do
-            print(i)
             local tbl = tbls[i]
             if type(tbl) == "table" then
-              table.move(tbls[i], 1, #tbls[i], k, merge)
-              k = k + #tbls[i]
+                table.move(tbls[i], 1, #tbls[i], k, merge)
+                k = k + #tbls[i]
             elseif tbl then
-              merge[k] = tbl
-              k = k + 1
+                merge[k] = tbl
+                k = k + 1
             end
         end
         
