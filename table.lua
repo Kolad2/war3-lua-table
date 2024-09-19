@@ -335,4 +335,31 @@ do
         end
         return meta or getmetatable(tbl)
     end
+
+    
+    function table.merge(tbl, ...)
+        if tbl == nil then return nil end
+        -- try to set common metatable
+        local meta = table.get_meta_compatible(tbl,...)
+        if meta == false then return nil end
+        local merge = setmetatable({}, meta)
+        --
+        local tbls = {tbl, ...}
+        if #tbls == 1 then tbls = tbl end
+        --
+        local k = 1
+        for i = 1, #tbls do
+            print(i)
+            local tbl = tbls[i]
+            if type(tbl) == "table" then
+              table.move(tbls[i], 1, #tbls[i], k, merge)
+              k = k + #tbls[i]
+            elseif tbl then
+              merge[k] = tbl
+              k = k + 1
+            end
+        end
+        
+        return merge
+    end
 end
