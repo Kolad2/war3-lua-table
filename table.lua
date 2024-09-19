@@ -1,5 +1,5 @@
 do
-    --[[war3-lua-table (13.09.2024)]]--
+    --[[war3-lua-table (20.09.2024)]]--
     ---@field get_meta_compatible fun(tbl:table,...):table
     ---@field merge fun(tbl:table,...):table
     ---@field get_random fun(tbl:table):any
