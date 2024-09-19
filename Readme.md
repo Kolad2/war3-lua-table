@@ -21,129 +21,35 @@ git clone https://github.com/Kolad2/war3-lua-table.git table
 ## Текущий программный интерфейс (API) модуля table
 
 ```lua
-
+---@field get_meta_compatible fun(tbl:table,...):table
+---@field merge fun(tbl:table,...):table
+---@field get_random fun(tbl:table):any
+---@field get fun(tbl:table, idx:number):any
+---@field empty fun():table
+---@field fill fun(tbl:table, value:number, pos_start:number, pos_end:number):table
+---@field move fun(tbl:table, pos_start:number, pos_end:number, tbl_to:number, pos_to:number):table
+---@field is_sorted fun(tbl:table):boolean
+---@field copy fun(tbl:table):table
+---@field slice fun(tbl:table, pos_start:number, pos_end:number):table
+---@field multiply fun(tbl:table, value:number):table
+---@field divide fun(tbl:table, value:number):table
+---@field subtract fun(tbl:table, value:number):table
+---@field add fun(tbl:table, value:number):table
+---@field argmin fun(tbl:table):number
+---@field argmax fun(tbl:table):number
+---@field min fun(tbl:table):number
+---@field max fun(tbl:table):number
+---@field cumsum fun(tbl:table):table
+---@field sum fun(tbl:table):number
+---@field reverse fun(tbl:table):table
+---@field shuffle fun(tbl:table):table
+---@field remove_swap fun(tbl:table, idx:number):any
+---@field remove fun(tbl:table, idx:number):any
+---@field tostring fun(tbl:table):string
+---@field pack fun(...):table
+---@field unpack fun(tbl:table, start_pos:number, end_pos:number)
 ---@field insert fun(tbl:table, pos:number, value:number):table
 table = table or {}
-
----insert
----@param tbl table
----@param pos number
----@param value number|nil
----@return table
-function table.insert(tbl, pos, value) end
-
----unpack
----@param tbl table
----@param start_pos number
----@param end_pos number
-function table.unpack(tbl, start_pos, end_pos) end
-
----tostring
----@param tbl table|number
-function table.tostring(tbl) end
-
----remove
----@param tbl table
----@param tbl number|nil
----@return any
-function table.remove(tbl, idx) end
-
----remove_swap
----@param tbl table
----@param idx number
----@return any
-function table.remove_swap(tbl, idx) end
-
----shuffle
----@param tbl table
-function table.shuffle(tbl) end
-
----reverse
----@param tbl table
-function table.reverse(tbl) end
-
----sum
----@param tbl table
-function table.sum(tbl) end
-
----cumsum
----@param tbl table
-function table.cumsum(tbl) end
-
----max
----@param tbl table
-function table.max(tbl) end
-
----min
----@param tbl table
-function table.min(tbl) end
-
----argmax
----@param tbl table
----@return number
-function table.argmax(tbl) end
-
----argmin
----@param tbl table
----@return table
-function table.argmin(tbl) end
-
----divide
----@param tbl table
----@param val number
----@return table
-function table.divide(tbl, val) end
-
----multiply
----@param tbl table
----@param val number
-function table.multiply(tbl, val) end
-
----splice
----@param tbl table
----@param pos_start number
----@param pos_end number
----@return table
-function table.slice(tbl, pos_start, pos_end) end
-
----copy
----@param tbl table|number
----@return table
-function table.copy(tbl) end
-
----is_sorted
----@param tbl table
----@return boolean
-function table.is_sorted(tbl) end
-
----move
----@param tbl table
----@param pos_start number
----@param pos_end number
----@param tbl_to table|number
----@param pos_to number|nil
-function table.move(tbl, pos_start, pos_end, tbl_to, pos_to) end
-
----fill
----@param tbl table
----@param value number
----@param pos_start number
----@param pos_end number
-function table.fill(tbl, value, pos_start, pos_end) end
-
----@return table
-function table.empty() end
-
----get
----@param tbl table
----@param idx number
----@return any
-function table.get(tbl, idx) end
-
----get_random
----@param tbl table
----@return any
-function table.get_random(tbl) end
 ```
 
 # Модуль table.sorts

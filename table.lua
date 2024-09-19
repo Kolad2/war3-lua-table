@@ -1,6 +1,32 @@
 do
     --[[war3-lua-table (13.09.2024)]]--
-
+    ---@field get_meta_compatible fun(tbl:table,...):table
+    ---@field merge fun(tbl:table,...):table
+    ---@field get_random fun(tbl:table):any
+    ---@field get fun(tbl:table, idx:number):any
+    ---@field empty fun():table
+    ---@field fill fun(tbl:table, value:number, pos_start:number, pos_end:number):table
+    ---@field move fun(tbl:table, pos_start:number, pos_end:number, tbl_to:number, pos_to:number):table
+    ---@field is_sorted fun(tbl:table):boolean
+    ---@field copy fun(tbl:table):table
+    ---@field slice fun(tbl:table, pos_start:number, pos_end:number):table
+    ---@field multiply fun(tbl:table, value:number):table
+    ---@field divide fun(tbl:table, value:number):table
+    ---@field subtract fun(tbl:table, value:number):table
+    ---@field add fun(tbl:table, value:number):table
+    ---@field argmin fun(tbl:table):number
+    ---@field argmax fun(tbl:table):number
+    ---@field min fun(tbl:table):number
+    ---@field max fun(tbl:table):number
+    ---@field cumsum fun(tbl:table):table
+    ---@field sum fun(tbl:table):number
+    ---@field reverse fun(tbl:table):table
+    ---@field shuffle fun(tbl:table):table
+    ---@field remove_swap fun(tbl:table, idx:number):any
+    ---@field remove fun(tbl:table, idx:number):any
+    ---@field tostring fun(tbl:table):string
+    ---@field pack fun(...):table
+    ---@field unpack fun(tbl:table, start_pos:number, end_pos:number)
     ---@field insert fun(tbl:table, pos:number, value:number):table
     table = table or {}
 
@@ -203,11 +229,11 @@ do
     
     ---add
     ---@param tbl table
-    ---@param val number
+    ---@param value number
     ---@return table
     function table.add(tbl, value)
           for i=1, #tbl do
-            tbl[i] = tbl[i] + val
+            tbl[i] = tbl[i] + value
           end
         return tbl
     end
@@ -378,10 +404,10 @@ do
         --
         local k = 1
         for i = 1, #tbls do
-            local tbl = tbls[i]
-            if type(tbl) == "table" then
-                table.move(tbls[i], 1, #tbls[i], k, merge)
-                k = k + #tbls[i]
+            local _tbl = tbls[i]
+            if type(_tbl) == "table" then
+                table.move(_tbl, 1, #_tbl, k, merge)
+                k = k + #_tbl
             elseif tbl then
                 merge[k] = tbl
                 k = k + 1
