@@ -50,7 +50,7 @@ do
     ---@param tbl table
     ---@return table
     function table.tostring(tbl)
-        if tbl == nil then return nil end
+        if tbl == nil then return tostring(nil) end
         if type(tbl) ~= "table" then return tostring(tbl) end
         local str = "{"
         if #tbl == 0 then return str .. "}" end
