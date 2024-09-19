@@ -301,4 +301,23 @@ do
     function table.empty()
         return {}
     end
+
+
+    ---get
+    ---@param tbl table
+    ---@param idx number
+    ---@return any
+    function table.get(tbl, idx)
+        return tbl[idx]
+    end
+
+
+    ---get_random
+    ---@param tbl table
+    ---@return any
+    function table.get_random(tbl)
+        if #tbl == 0 then return nil end
+        return tbl[math.random(1, #tbl)]
+    end
+
 end
