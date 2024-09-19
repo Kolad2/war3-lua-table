@@ -143,11 +143,6 @@ function table.get(tbl, idx) end
 function table.get_random(tbl) end
 ```
 
-```
-git clone https://github.com/Kolad2/war3-lua-sorts.git sorts
-```
-
-
 # Модуль table.sorts
 
 Модуль является адаптацией [репозитория](https://github.com/DervexDev/LuaSortingAlgorithms)
