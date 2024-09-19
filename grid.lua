@@ -9,7 +9,7 @@ do
 
     function Grid:get_cell(x, y)
         local i, j = self:get_indices(x, y)
-        return self.cells[j][i]
+        return self.cells[i][j]
     end
 
     function Grid:insert(x, y,...)
@@ -24,9 +24,7 @@ do
             for dj = -1, 1 do
                 local ni = i + di
                 local nj = j + dj
-                if not (di == 0 and dj == 0) and
-                        ni >  0 and ni < self.shape[1] and
-                        nj >  0 and nj < self.shape[2] then
+                if (not (di == 0 and dj == 0)) and self:is_in_bounds(ni, nj) then --  and
                     local cell = self.cells[ni][nj]
                     if cell then
                         table.insert(neighbors, cell)
@@ -35,6 +33,10 @@ do
             end
         end
         return neighbors
+    end
+
+    function Grid:is_in_bounds(i, j)
+        return (j > 0 and j <= self.shape[1]) and (i >  0 and i <= self.shape[2])
     end
 
     function Grid:tostring()
@@ -57,12 +59,12 @@ do
         grid.ymin = ymin
         grid.ymax = ymax
         grid.width  = xmax - xmin
-        grid.height = xmax - xmin
+        grid.height = ymax - ymin
         grid.cell_width  = cell_width
         grid.cell_height = cell_height
         grid.shape = {
-            math.floor(grid.width  / grid.cell_width  + 1),
-            math.floor(grid.height / grid.cell_height + 1)
+            math.floor(grid.height / grid.cell_height + 1),
+            math.floor(grid.width  / grid.cell_width  + 1)
         }
         grid.cells = NDArray(grid.shape):fill(table.empty)
         return grid
