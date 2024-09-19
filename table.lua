@@ -1,5 +1,7 @@
 do
     --[[war3-lua-table (13.09.2024)]]--
+
+    ---@field insert fun(tbl:table, pos:number, value:number):table
     table = table or {}
 
     ---@return table

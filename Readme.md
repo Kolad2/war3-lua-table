@@ -21,11 +21,9 @@ git clone https://github.com/Kolad2/war3-lua-table.git table
 ## Текущий программный интерфейс (API) модуля table
 
 ```lua
----insert
----@param tbl table
----@param value number
----@return table
-function table.insert(tbl, value) end
+
+---@field insert fun(tbl:table, pos:number, value:number):table
+table = table or {}
 
 ---insert
 ---@param tbl table

@@ -1,5 +1,7 @@
 do
-    local table = table or {}
+    table = table or {}
+
+    ---@field bubble fun(array:table):table
     table.sorts = table.sorts or {}
     local sorts = table.sorts
 
@@ -17,6 +19,8 @@ do
     -- [[bucket]] --
 
 
+    ---bubble
+    ---@param array table
     function sorts.bubble(array)
         for i = 1, #array do
             for j = 1, #array - i do
@@ -29,6 +33,9 @@ do
     end
 
 
+    ---bucket
+    ---@param array table
+    ---@param slots number|nil
     function sorts.bucket(array, slots)
         local buckets = {}
         slots = 10 or slots
@@ -49,7 +56,7 @@ do
 
         -- Сортируем каждую корзину
         for i = 1, slots do
-            buckets[i] = sorts.insertion(buckets[i])
+            buckets[i] = table.sorts.insertion(buckets[i])
         end
 
         -- Собираем обратно элементы из корзин
@@ -66,7 +73,7 @@ do
 
 
     function sorts.quick(array)
-        local function partition(low, high)
+        local function partition(array, low, high)
             local pivot = array[high]
             local i = low - 1
             for j = low, high - 1 do
@@ -78,15 +85,15 @@ do
             array[i + 1], array[high] = array[high], array[i + 1]
             return i + 1
         end
-        local function sort(low, high)
+        local function sort(array, low, high)
             if low < high then
-                local pivot = partition(low, high)
+                local pivot = partition(array, low, high)
                 sort(low, pivot - 1)
                 sort(pivot + 1, high)
             end
             return array
         end
-        return sort(1, #array)
+        return sort(array,1, #array)
     end
 
 
