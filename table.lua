@@ -198,6 +198,19 @@ do
         return idx
     end
 
+    
+    ---subtract
+    ---@param tbl table
+    ---@param val number
+    ---@return table
+    function table.subtract(tbl, val)
+        for i=1, #tbl do
+            tbl[i] = tbl[i] - val
+        end
+        return tbl
+    end
+
+    
     ---multiply
     ---@param tbl table
     ---@param val number
