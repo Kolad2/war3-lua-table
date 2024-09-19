@@ -130,6 +130,17 @@ function table.fill(tbl, value, pos_start, pos_end) end
 
 ---@return table
 function table.empty() end
+
+---get
+---@param tbl table
+---@param idx number
+---@return any
+function table.get(tbl, idx) end
+
+---get_random
+---@param tbl table
+---@return any
+function table.get_random(tbl) end
 ```
 
 ```

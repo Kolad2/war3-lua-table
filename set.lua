@@ -36,7 +36,7 @@ do
 
 
     function object:get_random()
-        return self[math.random(1, #self)]
+        return table.get_random(self)
     end
 
 
