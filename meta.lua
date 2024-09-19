@@ -10,8 +10,8 @@ do
         __div = table.divide     -- деление
     }
 
-    function table.setmetatable(tbl)
-        return setmetatable(tbl, table.meta)
+    function table:setmetatable(tbl)
+        return setmetatable(tbl, self.meta)
     end
 
     setmetatable(table, {
