@@ -2,6 +2,11 @@ do
     --[[war3-lua-table (13.09.2024)]]--
     table = table or {}
 
+    ---@return table
+    function table.empty()
+        return {}
+    end
+    
     ---insert
     ---@param tbl table
     ---@param pos number
@@ -296,13 +301,7 @@ do
             end
         end
     end
-
-    ---@return table
-    function table.empty()
-        return {}
-    end
-
-
+    
     ---get
     ---@param tbl table
     ---@param idx number
@@ -320,4 +319,20 @@ do
         return tbl[math.random(1, #tbl)]
     end
 
+    
+    function table.get_meta_compatible(tbl,...)
+        local tbls = {tbl, ...}
+        if #tbls == 1 then tbls = {table.unpack(tbl)} end
+        
+        local meta = getmetatable(tbls[1])
+        for i = 1, #tbls do
+            meta = meta or getmetatable(tbls[i])
+            local compare_meta = getmetatable(tbls[i]) or meta
+            if meta ~= compare_meta then
+                print("Ошибка: метатаблицы не совместимы")
+                return false
+            end
+        end
+        return meta or getmetatable(tbl)
+    end
 end
