@@ -199,6 +199,18 @@ do
     end
 
     
+    ---add
+    ---@param tbl table
+    ---@param val number
+    ---@return table
+    function table.add(tbl, value)
+          for i=1, #tbl do
+            tbl[i] = tbl[i] + val
+          end
+        return tbl
+    end
+
+    
     ---subtract
     ---@param tbl table
     ---@param val number
@@ -219,7 +231,9 @@ do
         for i=1, #tbl do
             tbl[i] = tbl[i] * val
         end
+        return tbl
     end
+    
 
     ---divide
     ---@param tbl table
