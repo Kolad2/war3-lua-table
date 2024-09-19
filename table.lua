@@ -272,7 +272,7 @@ do
                 tbl_copy[key] = value
             end
         end
-        return tbl_copy
+        return setmetatable(tbl_copy, getmetatable(tbl))
     end
 
     ---is_sorted
