@@ -175,6 +175,7 @@ function table.get_random(tbl) end
 официальный мануал по таблицам.
 - [LuaSortingAlgorithms](https://github.com/DervexDev/LuaSortingAlgorithms) - 
 репозиторий конвертированных из python алгоритмов сортировки.
+- [MDTable](https://www.hiveworkshop.com/threads/multidimensional-table.353717/) - класс мульти таблиц
 
 # Полезные источники
 - lua-set https://github.com/wscherphof/lua-set/tree/master
