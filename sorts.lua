@@ -1,14 +1,22 @@
 do
     table = table or {}
-
+    ---@field stooge fun(array:table):table
+    ---@field shell fun(array:table):table
+    ---@field pigeonhole fun(array:table):table
+    ---@field pancake fun(array:table):table
+    ---@field merge fun(array:table):table
+    ---@field heap fun(array:table):table
+    ---@field gnome fun(array:table):table
+    ---@field cycle fun(array:table):table
+    ---@field comb fun(array:table):table
+    ---@field cocktail fun(array:table):table
+    ---@field circle fun(array:table):table
+    ---@field insertion fun(array:table):table
+    ---@field quick fun(array:table):table
+    ---@field bucket fun(array:table):table
     ---@field bubble fun(array:table):table
     table.sorts = table.sorts or {}
     local sorts = table.sorts
-
-    --included methods
-    --[[bubble,  quick,      insertion, circle, cocktail,
-        comb,    cycle,      gnome,     heap,   merge,
-        pancake, pigeonhole, shell,     stooge]]--
 
     -- gravity -- полезная сортировка
 
@@ -32,7 +40,6 @@ do
         return array
     end
 
-
     ---bucket
     ---@param array table
     ---@param slots number|nil
@@ -41,7 +48,7 @@ do
         slots = 10 or slots
 
         -- Создаем пустые корзины
-        for i = 1, slots do
+        for _ = 1, slots do
             table.insert(buckets, {})
         end
 
@@ -71,7 +78,9 @@ do
         return array
     end
 
-
+    ---quick
+    ---@param array table
+    ---@return table
     function sorts.quick(array)
         local function partition(array, low, high)
             local pivot = array[high]
@@ -96,7 +105,9 @@ do
         return sort(array,1, #array)
     end
 
-
+    ---insertion
+    ---@param array table
+    ---@return table
     function sorts.insertion(array)
         for i = 2, #array do
             local key = array[i]
@@ -110,7 +121,9 @@ do
         return array
     end
 
-
+    ---circle
+    ---@param array table
+    ---@return table
     function sorts.circle(array)
         local function inner_circle(list, low, high, swaps)
             if low >= high then
@@ -139,7 +152,9 @@ do
         return array
     end
 
-
+    ---cocktail
+    ---@param array table
+    ---@return table
     function sorts.cocktail(array)
         local swapped
 
@@ -168,7 +183,9 @@ do
         return array
     end
 
-
+    ---comb
+    ---@param array table
+    ---@return table
     function sorts.comb(array)
         local function get_next_gap(gap)
             gap = math.floor((gap * 10) / 13)
@@ -192,7 +209,9 @@ do
         return array
     end
 
-
+    ---cycle
+    ---@param array table
+    ---@return table
     function sorts.cycle(array)
         local start = 0
 
@@ -243,7 +262,9 @@ do
         return array
     end
 
-
+    ---gnome
+    ---@param array table
+    ---@return table
     function sorts.gnome(array)
         local i, j = 2, 3
 
@@ -265,7 +286,9 @@ do
         return array
     end
 
-
+    ---heap
+    ---@param array table
+    ---@return table
     function sorts.heap(array)
         local function heapify(size, i)
             local left = 2 * i
@@ -296,6 +319,9 @@ do
         return array
     end
 
+    ---merge
+    ---@param array table
+    ---@return table
     function sorts.merge(array)
         local function mergeSort(low, mid, high)
             local n1 = mid - low + 1
@@ -341,7 +367,9 @@ do
         return sort(1, #array)
     end
 
-
+    ---pancake
+    ---@param array table
+    ---@return table
     function sorts.pancake(array)
 
         local function flip(array, i)
@@ -380,7 +408,9 @@ do
         return array
     end
 
-
+    ---pigeonhole
+    ---@param array table
+    ---@return table
     function sorts.pigeonhole(array)
         local holes = {}
 
@@ -403,6 +433,9 @@ do
         return array
     end
 
+    ---selection
+    ---@param array table
+    ---@return table
     function sorts.selection(array)
         for i = 1, #array do
             local min = i
@@ -419,7 +452,9 @@ do
         return array
     end
 
-
+    ---shell
+    ---@param array table
+    ---@return table
     function sorts.shell(array)
         local gap = math.floor(#array / 2)
 
@@ -448,7 +483,9 @@ do
         return array
     end
 
-
+    ---stooge
+    ---@param array table
+    ---@return table
     function sorts.stooge(array)
         local function sort(low, high)
             if low >= high then
