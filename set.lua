@@ -1,5 +1,6 @@
 do
-
+    ---@class set
+    ---@field remove fun(self:set, item:any): boolean
     local object = {}
 
     ---@param item any
@@ -15,7 +16,7 @@ do
     object.add = object.insert
 
 
-    ---@param idx number
+    ---@param item any
     ---@return boolean
     function object:remove(item)
         local idx = self.__index_table:get(item)
@@ -51,10 +52,10 @@ do
     }
 
 
-    ---Set
+    ---set
     ---@return set
-    function set()
-        local self = {} ---@type table
+    function set(tbl)
+        local self = {} ---@type set
         self.__index_table = dict()
 
         return setmetatable(self, object_meta)

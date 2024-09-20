@@ -18,7 +18,7 @@ table = {"unpack", "insert", "pack", "sort", "concat", "move", "remove", "unpack
 git clone https://github.com/Kolad2/war3-lua-table.git table
 ```
 
-## Текущий программный интерфейс (API) модуля table
+## Программный интерфейс (API) модуля table
 
 ```lua
 ---@field get_meta_compatible fun(tbl:table,...):table
@@ -50,6 +50,28 @@ git clone https://github.com/Kolad2/war3-lua-table.git table
 ---@field unpack fun(tbl:table, start_pos:number, end_pos:number)
 ---@field insert fun(tbl:table, pos:number, value:number):table
 table = table or {}
+```
+# Модуль NDArray
+## Программный интерфейс (API) модуля NDArray
+
+```lua
+do
+    ---@type NDArrayClass
+    ---@overload fun(shape:table): NDArray
+    NDArray = NDArray or {}
+
+    ---@class NDArray
+    ---@field fill fun(self:NDArray, value:any):table
+    ---@field tostring fun(self:NDArray):string
+    ---@field shape table
+    ---@field ndim number
+    local object = {}
+
+    ---@class NDArrayClass
+    ---@field emptify fun(self:NDArrayClass, ndarray:NDArray):NDArray
+    ---@field create fun(self:NDArrayClass, shape:table):NDArray
+    local class = {}
+end 
 ```
 
 # Модуль table.sorts

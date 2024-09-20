@@ -1,5 +1,10 @@
 do -- require "table"
 
+    --- генератор нулей
+    local empty = math.empty or function()
+        return nil
+    end
+
     local function tostring2d(ndarray)
         local _str = "{"
         for i = 1, #ndarray do
@@ -13,21 +18,31 @@ do -- require "table"
         return _str
     end
 
+    ---------------- Class NDArray API ----------------------------
+    ---@type NDArrayClass
+    ---@overload fun(shape:table): NDArray
+    NDArray = NDArray or {}
 
-
-    ---@field create fun(self:table, shape:table):table
-    ---@field emptify fun(self:table, ndarray:NDArray):table
-    NDArray = NDArray or {} ---@type table|fun(shape:table):table
-
-
+    ---@class NDArray
     ---@field fill fun(self:NDArray, value:any):table
     ---@field tostring fun(self:NDArray):string
+    ---@field shape table
+    ---@field ndim number
     local object = {}
 
+    ---@class NDArrayClass
+    ---@field emptify fun(self:NDArrayClass, ndarray:NDArray):NDArray
+    ---@field create fun(self:NDArrayClass, shape:table):NDArray
+    local class = {}
+    ---------------- object methods ---------------------------------
+    ---fill
+    ---@param value table
+    ---@return NDArray
     function object:fill(value)
         NDArray:fill_nda(self, self.shape, value)
         return self
     end
+
 
     function object:tostring()
         if self.ndim == 1 then
@@ -50,27 +65,18 @@ do -- require "table"
         __tostring = object.tostring
     }
 
-    ---@field create fun(shape:table):table
-    local class = {}
-
     ---create
     ---@param shape table
     ---@return NDArray
     function class:create(shape)
-        ---@class NDArray
-        ---@field fill fun(self:table, value:any):table
-        ---@field tostring fun(self:table):string
-        local obj = {}
+        local obj = {} ---@type NDArray
         obj.shape = shape
         obj.ndim = #obj.shape
         self:emptify(obj)
         return setmetatable(obj, object_meta)
     end
 
-    local empty = math.empty or function()
-        return nil
-    end
-
+    ---------------- class methods ------------------------
     ---emptify
     ---@param ndarray NDArray
     ---@return NDArray
@@ -106,7 +112,7 @@ do -- require "table"
     end
 
 
-    NDArray = setmetatable(NDArray, {
+    setmetatable(NDArray, {
         __index = class,
         __call = class.create
     })
