@@ -53,7 +53,7 @@ table = table or {}
 ```
 
 # Модуль table.sorts
-
+## Описание модуля table.sorts
 Модуль является адаптацией [репозитория](https://github.com/DervexDev/LuaSortingAlgorithms)
 конвертированных из python алгоритмов сортировки. 
 
@@ -70,9 +70,32 @@ table = table or {}
 * Insertion Sort
 * Merge Sort
 * Pancake Sort
-* Pigeonhole Sort
 * Quick Sort
 * Bucket Sort - not recommended
+
+Следующие алгоритмы поддерживают только целые числа:
+
+* Pigeonhole Sort
+## Текущий программный интерфейс (API) модуля table.sorts
+
+```lua
+---@field stooge fun(array:table):table
+---@field shell fun(array:table):table
+---@field pigeonhole fun(array:table):table -- integer only
+---@field pancake fun(array:table):table
+---@field merge fun(array:table):table
+---@field heap fun(array:table):table
+---@field gnome fun(array:table):table
+---@field cycle fun(array:table):table
+---@field comb fun(array:table):table
+---@field cocktail fun(array:table):table
+---@field circle fun(array:table):table
+---@field insertion fun(array:table):table
+---@field quick fun(array:table):table
+---@field bucket fun(array:table):table
+---@field bubble fun(array:table):table
+---table.sorts = table.sorts or {}
+```
 
 # Использованные источники
 - [lua-table](https://github.com/Luca96/lua-table/tree/master) - 

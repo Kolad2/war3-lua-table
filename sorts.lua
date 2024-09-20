@@ -2,7 +2,7 @@ do
     table = table or {}
     ---@field stooge fun(array:table):table
     ---@field shell fun(array:table):table
-    ---@field pigeonhole fun(array:table):table
+    ---@field pigeonhole fun(array:table):table -- integer only
     ---@field pancake fun(array:table):table
     ---@field merge fun(array:table):table
     ---@field heap fun(array:table):table
@@ -82,7 +82,7 @@ do
     ---@param array table
     ---@return table
     function sorts.quick(array)
-        local function partition(array, low, high)
+        local function partition(low, high)
             local pivot = array[high]
             local i = low - 1
             for j = low, high - 1 do
@@ -94,15 +94,15 @@ do
             array[i + 1], array[high] = array[high], array[i + 1]
             return i + 1
         end
-        local function sort(array, low, high)
+        local function sort(low, high)
             if low < high then
-                local pivot = partition(array, low, high)
+                local pivot = partition(low, high)
                 sort(low, pivot - 1)
                 sort(pivot + 1, high)
             end
             return array
         end
-        return sort(array,1, #array)
+        return sort(1, #array)
     end
 
     ---insertion
@@ -130,7 +130,6 @@ do
                 return swaps
             end
             local sub_high, sub_low = high, low
-            local mid = math.floor((high - low) / 2)
             --[[цикл, начинает с условно граничных значений,
             постепенно сужает границу и переставляет значения на границе
             --]]
