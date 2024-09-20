@@ -117,8 +117,8 @@ do
     ---@return any
     function table.remove_swap(tbl, idx)
         idx = idx or #tbl
+        local item = tbl[idx]
         tbl[idx]  = tbl[#tbl]
-        local item = tbl[#idx]
         tbl[#tbl] = nil
         return item
     end
