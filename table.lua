@@ -418,12 +418,12 @@ do
     end
 
     function table.unique(tbl)
-        local index_table = {}
+        local index_table = dict()
         local i = 1
         while i <= #tbl do
             local item = tbl[i]
-            if not (index_table[item]) then
-                index_table[item] = i
+            if not (index_table:has(item)) then
+                index_table:set(item, i)
                 i = i + 1
             else
                 table.remove_swap(tbl, i)
