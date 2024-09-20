@@ -13,8 +13,15 @@ do -- require "table"
         return _str
     end
 
-    NDArray = {}
 
+
+    ---@field create fun(self:table, shape:table):table
+    ---@field emptify fun(self:table, ndarray:NDArray):table
+    NDArray = NDArray or {} ---@type table|fun(shape:table):table
+
+
+    ---@field fill fun(self:NDArray, value:any):table
+    ---@field tostring fun(self:NDArray):string
     local object = {}
 
     function object:fill(value)
@@ -43,9 +50,16 @@ do -- require "table"
         __tostring = object.tostring
     }
 
+    ---@field create fun(shape:table):table
     local class = {}
 
+    ---create
+    ---@param shape table
+    ---@return NDArray
     function class:create(shape)
+        ---@class NDArray
+        ---@field fill fun(self:table, value:any):table
+        ---@field tostring fun(self:table):string
         local obj = {}
         obj.shape = shape
         obj.ndim = #obj.shape
@@ -58,11 +72,10 @@ do -- require "table"
     end
 
     ---emptify
-    ---@param ndarray table
-    ---@return table
+    ---@param ndarray NDArray
+    ---@return NDArray
     function class:emptify(ndarray)
         local shape = ndarray.shape
-        local ndarray = ndarray
 
         if #shape == n then
             return table.fill(ndarray, empty, shape[n])
@@ -73,9 +86,9 @@ do -- require "table"
         table.insert(old_stack, ndarray)
         --
         for n = 1, #shape - 1 do
-            for i, ndarray in ipairs(old_stack) do
-                table.fill(ndarray, table.empty, shape[n])
-                for j, item in ipairs(ndarray) do
+            for _, _ndarray in ipairs(old_stack) do
+                table.fill(_ndarray, table.empty, shape[n])
+                for _, item in ipairs(_ndarray) do
                     table.insert(new_stack, item)
                 end
             end
