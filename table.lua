@@ -416,4 +416,19 @@ do
         
         return merge
     end
+
+    function table.unique(tbl)
+        local index_table = {}
+        local i = 1
+        while i <= #tbl do
+            local item = tbl[i]
+            if not (index_table[item]) then
+                index_table[item] = i
+                i = i + 1
+            else
+                table.remove_swap(tbl, i)
+            end
+        end
+        return tbl, index_table
+    end
 end
