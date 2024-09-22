@@ -42,7 +42,7 @@ do
 
 
     function object:remove_random()
-        self:remove(self:get_random())
+        return self:remove(self:get_random())
     end
 
 
