@@ -6,11 +6,11 @@ do
     ---@param key any
     ---@param item any
     function object:set(key, item)
-        self[key] = item
+        self.data[key] = item
     end
 
     function object:remove(key)
-        self[key] = nil
+        self.data[key] = nil
     end
 
     function object:has(key)
@@ -18,7 +18,7 @@ do
     end
 
     function object:get(key)
-        return self[key]
+        return self.data[key]
     end
 
     local dict_meta = {
