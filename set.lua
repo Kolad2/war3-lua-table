@@ -66,6 +66,7 @@ do
     ---set
     ---@return set
     function set(tbl)
+        --local tbl, index_table = table.unique(tbl)
         local self = {} ---@type set
         self.__index_table = dict()
 
