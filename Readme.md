@@ -51,6 +51,7 @@ git clone https://github.com/Kolad2/war3-lua-table.git table
 ---@field insert fun(tbl:table, pos:number, value:number):table
 table = table or {}
 ```
+
 # Модуль NDArray
 ## Описание модуля NDArray
 Модуль многомерных табиц или массива.
@@ -86,8 +87,25 @@ do
 end 
 ```
 
-# Модуль set
+# Модуль dict
+## Программный интерфейс (API) модуля set
 
+```lua
+---@class dict
+---@field create fun(self:dict)
+---@field set fun(self:dict, key:number|string, item:any):void
+---@field remove fun(self:dict, key:number|string):void
+---@field has fun(self:dict, key:number|string):boolean
+---@field get fun(self:dict, key:number|string):any
+---@field each fun(self:dict, callback:fun(key:number|string, value:any)): void
+---@field keys fun(self:dict): table
+---@field values fun(self:dict): table
+---@field size fun(self:dict): number
+---@field clear fun(self:dict): void
+dict = dict or {}
+```
+
+# Модуль set
 ## Программный интерфейс (API) модуля set
 
 ```lua
