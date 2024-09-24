@@ -1,7 +1,7 @@
 do
     ---@class set
     ---@field remove fun(self:set, item:any): boolean
-    ---@field insert fun(self:set, item:any): boolean
+    ---@method insert fun(self:set, item:any): boolean
     ---@field add fun(self:set, item:any): boolean
     ---@field has fun(self:set, item:any): boolean
     ---@field get_random fun(self:set): any
