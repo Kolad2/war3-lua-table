@@ -86,6 +86,23 @@ do
 end 
 ```
 
+# Модуль set
+
+## Программный интерфейс (API) модуля set
+
+```lua
+---@class set
+---@field remove fun(self:set, item:any): boolean
+---@field insert fun(self:set, item:any): boolean
+---@field add fun(self:set, item:any): boolean
+---@field has fun(self:set, item:any): boolean
+---@field get_random fun(self:set): any
+---@field remove_random fun(self:set)
+---@field create fun(self:set, tbl:table): set
+---@overload fun(tbl:table): set
+set = set or {}
+```
+
 # Модуль table.sorts
 ## Описание модуля table.sorts
 Модуль является адаптацией [репозитория](https://github.com/DervexDev/LuaSortingAlgorithms)

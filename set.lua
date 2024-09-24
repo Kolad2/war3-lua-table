@@ -7,7 +7,7 @@ do
     ---@field get_random fun(self:set): any
     ---@field remove_random fun(self:set)
     ---@field create fun(self:set, tbl:table): set
-    ---@overload fun(self:set, tbl:table): set
+    ---@overload fun(tbl:table): set
     set = set or {}
 
 
@@ -67,10 +67,54 @@ do
         return self:remove(self:get_random())
     end
 
+    ---@param _set set Второе множество.
+    ---@return set Новое объединённое множество.
+    function set:union(_set)
+        for _, item in ipairs(_set) do
+            self:insert(item)  -- Добавляем элементы из второго множества
+        end
+        return self
+    end
+
+    --- Возвращает новое множество, являющееся пересечением текущего множества и второго.
+    ---@param _set set Второе множество.
+    ---@return set Пересечённое множество.
+    function set:intersection(_set)
+        local i = 1
+        while i <= #self do
+            local item = self[i]
+            if _set:has(item) then
+                i = i + 1
+            else
+                self:remove(item)
+            end
+        end
+        return self
+    end
+
+
+    ---@param _set set Второе множество.
+    ---@return set Новое множество-разность.
+    function set:difference(_set)
+        local i = 1
+        while i <= #self do
+            local item = self[i]
+            if _set:has(item) then
+                self:remove(item)
+            else
+                i = i + 1
+            end
+        end
+        return self
+    end
+
 
     set.object_meta = {
         __index = set,
-        __tostring = table.tostring
+        __tostring = table.tostring,
+        __add = function(set1, set2) return set.union(set(table.copy(set1)), set2)  end,
+        __mul = function(set1, set2) return set.intersection(set(table.copy(set1)), set2)  end,
+        __sub = function(set1, set2) return set.difference(set(table.copy(set1)), set2)  end
     }
 
 
@@ -80,7 +124,7 @@ do
     function set:create(tbl)
         tbl = tbl or {} ---@type set
         tbl, tbl.__index_table = table.unique(tbl)
-        return setmetatable(obj, self.object_meta)
+        return setmetatable(tbl, self.object_meta)
     end
 
     setmetatable(set, {__call = set.create})
