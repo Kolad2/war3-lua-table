@@ -7,8 +7,9 @@ do
     ---@field get_random fun(self:set): any
     ---@field remove_random fun(self:set)
     ---@field create fun(self:set, tbl:table): set
-    ---@overload
+    ---@overload fun(self:set, tbl:table): set
     set = set or {}
+
 
     ---@param item any
     ---@return boolean
