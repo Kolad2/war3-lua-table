@@ -6,15 +6,27 @@ do
     ---@param item any
     function object:insert(item)
         if self.__index_table:has(item) then
-            print("Ошибка: элемент уже существовал")
             return false
         end
         table.insert(self, item)
         self.__index_table:set(item, #self)
         return true
     end
-    object.add = object.insert
 
+    ---@param item any
+    function object:add(item)
+        if self:insert(item) then
+            return true
+        end
+        print("Ошибка: элемент уже существовал")
+        return false
+    end
+
+    ---@param item any
+    ---@return boolean
+    function object:has(item)
+        return self.__index_table:has(item)
+    end
 
     ---@param item any
     ---@return boolean
@@ -39,7 +51,6 @@ do
     function object:get_random()
         return table.get_random(self)
     end
-
 
     function object:remove_random()
         return self:remove(self:get_random())
