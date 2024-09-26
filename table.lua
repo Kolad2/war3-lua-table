@@ -1,5 +1,7 @@
 do
     --[[war3-lua-table (20.09.2024)]]--
+    ---@class table
+    ---@field find fun(tbl: table, value: any): table
     ---@field get_meta_compatible fun(tbl:table,...):table
     ---@field merge fun(tbl:table,...):table
     ---@field get_random fun(tbl:table):any
@@ -40,11 +42,10 @@ do
     ---@param pos number
     ---@param value number
     ---@return table
-    function table.insert(tbl, pos, value)
+    table.insert = table.insert or function(tbl, pos, value)
         -- Определяем, передано ли значение или только позиция
         if value == nil then
-            value = pos
-            pos = #tbl + 1
+            pos, value = #tbl + 1, pos
         end
         -- Если pos выходит за границы текущей длины таблицы, добавляем в конец
         if pos > #tbl + 1 then
@@ -417,6 +418,7 @@ do
         return merge
     end
 
+
     function table.unique(tbl)
         local index_table = dict()
         local i = 1
@@ -431,4 +433,16 @@ do
         end
         return tbl, index_table
     end
+
+
+    table.find = table.find or function(tbl, item)
+        local indices  = {}
+        for i = 1, #tbl do
+            if tbl[i] == item then
+                table.insert(indices , i)
+            end
+        end
+        return indices
+    end
+
 end
