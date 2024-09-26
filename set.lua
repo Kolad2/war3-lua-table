@@ -1,31 +1,32 @@
 do
     ---@class set
     ---@field remove fun(self:set, item:any): boolean
-    ---@method insert fun(self:set, item:any): boolean
+    ---@field insert fun(self:set, item:any): boolean
     ---@field add fun(self:set, item:any): boolean
     ---@field has fun(self:set, item:any): boolean
     ---@field get_random fun(self:set): any
     ---@field remove_random fun(self:set)
     ---@field create fun(self:set, tbl:table): set
+    ---@field __index_dict dict
     ---@overload fun(tbl:table): set
     set = set or {}
 
-
+    ---@param obj set
     ---@param item any
     ---@return boolean
-    function set:insert(item)
-        if self.__index_table:has(item) then
+    set.insert = function(obj, item)
+        if obj.__index_dict:has(item) then
             return false
         end
         table.insert(self, item)
-        self.__index_table:set(item, #self)
+        obj.__index_dict:set(item, #self)
         return true
     end
 
     ---@param item any
     ---@return boolean
-    function set:add(item)
-        if self:insert(item) then
+    set.add = function(obj, item)
+        if obj:insert(item) then
             return true
         end
         print("Ошибка: элемент уже существовал")
@@ -35,25 +36,25 @@ do
     ---@param item any
     ---@return boolean
     function set:has(item)
-        return self.__index_table:has(item)
+        return self.__index_dict:has(item)
     end
 
     --- Removes an item from the set.
     ---@param item any The item to remove.
     ---@return boolean Returns `true` if the item was successfully removed, `false` otherwise.
     function set:remove(item)
-        local idx = self.__index_table:get(item)
+        local idx = self.__index_dict:get(item)
         if not idx then
             print("Ошибка: элемент не существовал")
             return false
         end
         table.remove_swap(self, idx)
         if self[idx] ~= nil then
-            self.__index_table:remove(item)
-            self.__index_table:set(self[idx], idx)
+            self.__index_dict:remove(item)
+            self.__index_dict:set(self[idx], idx)
             return true
         else
-            self.__index_table:remove(item)
+            self.__index_dict:remove(item)
         end
         return false
     end
@@ -119,11 +120,11 @@ do
 
 
     --- Создаёт новое множество.
-    ---@param tbl? table Начальная таблица элементов (опционально).
+    ---@param tbl table|set Начальная таблица элементов (опционально).
     ---@return set Новое множество.
     function set:create(tbl)
         tbl = tbl or {} ---@type set
-        tbl, tbl.__index_table = table.unique(tbl)
+        tbl, tbl.__index_dict = table.unique(tbl)
         return setmetatable(tbl, self.object_meta)
     end
 
