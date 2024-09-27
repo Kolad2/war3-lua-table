@@ -312,7 +312,13 @@ do
     --------------- fuctional utils ------------
     table.each = function(tbl, callback,...)
         for key, value in pairs(tbl) do
-            callback(value,...)
+            callback(key, value,...)
+        end
+    end
+    
+    table.ieach = function(tbl, callback,...)
+        for i, value in ipairs(tbl) do
+            callback(i, value,...)
         end
     end
     
