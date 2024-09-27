@@ -18,8 +18,8 @@ do
         if obj.__index_dict:has(item) then
             return false
         end
-        table.insert(self, item)
-        obj.__index_dict:set(item, #self)
+        table.insert(obj, item)
+        obj.__index_dict:set(item, #obj)
         return true
     end
 
