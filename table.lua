@@ -324,8 +324,15 @@ do
         end
         return setmetatable(tbl_copy, getmetatable(tbl))
     end
-
-
+    
+    ---
+    table.map = function(tbl, callback,...)
+        for i, value in ipairs(tbl) do
+            tbl[i] = callback(value,...)
+        end
+    end
+    ---
+    
     ---deepcopy
     ---@param tbl table
     ---@return table
