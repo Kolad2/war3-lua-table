@@ -331,10 +331,7 @@ do
     table.copy = table.copy or
     function(tbl, callback)
         callback = callback or function(value) return value end
-        local tbl_copy = {}
-        for i, value in ipairs(tbl) do
-            tbl_copy[i] = value
-        end
+        local tbl_copy = table.map(tbl, callback)
         return setmetatable(tbl_copy, getmetatable(tbl))
     end
     
