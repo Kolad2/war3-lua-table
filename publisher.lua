@@ -1,5 +1,9 @@
 do
     ---@class Publisher
+    ---@field subscribe fun(obj: Publisher, subscriber: function)
+    ---@field unsubscribe fun(obj: Publisher, subscriber: function)
+    ---@field publish fun(obj: Publisher,...)
+    ---@overload fun():Publisher
     Publisher = Publisher or {}
 
     -- метатаблица для экземпляров
@@ -10,7 +14,7 @@ do
     -- генератор экземлпляров класса
     meta.__create = function(cls)
         local obj = setmetatable({}, cls.__meta)
-        obj.subscribers = {}
+        obj.subscribers = set()
         return obj
     end
     
@@ -23,26 +27,25 @@ do
 
     ------------------ методы класса -----------------------
     -- подписка на издателя
-    function Publisher:subscribe(subscriber)
-        table.insert(self.subscribers, subscriber)
-    end
-    
-    -- публикация издателем
-    function Publisher:publish(...)
-        -- local data = table.copy({...})
-        local subscribers = self.subscribers
-        for i, subscriber in ipairs(subscribers) do
-            print("sub num",i)
-            subscriber(...)
-        end      
+    Publisher.subscribe = function(obj, subscriber)
+        obj.subscribers:add(subscriber)
     end
 
+
     -- отписка от издателя
-    function Publisher:unsubscribe(subscriber) -- detach
-        local subscribers = self.subscribers
-        local indices = table.find(subscribers, subscriber)
-        for _, idx in ipairs(indices) do
-            table.remove(subscribers, idx)
-        end
+    Publisher.unsubscribe = function(obj, subscriber) -- detach
+        local subscribers = obj.subscribers
+        local idx = table.find_first(subscribers, subscriber)
+        if idx then table.remove(subscribers, idx) end
+    end
+
+
+    -- публикация издателем
+    Publisher.publish = function(obj,...)
+        -- local data = table.copy({...})
+        local subscribers = obj.subscribers
+        for _, subscriber in ipairs(subscribers) do
+            subscriber(...)
+        end      
     end
 end
