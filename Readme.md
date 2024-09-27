@@ -21,6 +21,10 @@ git clone https://github.com/Kolad2/war3-lua-table.git table
 ## Программный интерфейс (API) модуля table
 
 ```lua
+---@class table
+---@field unique fun(tbl: table): table, table
+---@field find fun(tbl: table, value: any): table
+---@field find_first fun(tbl: table, value: any, pos_start: number): table|nil
 ---@field get_meta_compatible fun(tbl:table,...):table
 ---@field merge fun(tbl:table,...):table
 ---@field get_random fun(tbl:table):any
@@ -72,14 +76,14 @@ do
     ---@type NDArrayClass
     ---@overload fun(shape:table): NDArray
     NDArray = NDArray or {}
-
+    
     ---@class NDArray
     ---@field fill fun(self:NDArray, value:any):table
     ---@field tostring fun(self:NDArray):string
     ---@field shape table
     ---@field ndim number
     local object = {}
-
+    
     ---@class NDArrayClass
     ---@field emptify fun(self:NDArrayClass, ndarray:NDArray):NDArray
     ---@field create fun(self:NDArrayClass, shape:table):NDArray
@@ -120,6 +124,18 @@ dict = dict or {}
 ---@overload fun(tbl:table): set
 set = set or {}
 ```
+
+# Модуль publisher
+## Программный интерфейс (API) модуля publisher
+```lua
+---@class Publisher
+---@field subscribe fun(obj: Publisher, subscriber: function)
+---@field unsubscribe fun(obj: Publisher, subscriber: function)
+---@field publish fun(obj: Publisher,...)
+---@overload fun():Publisher
+Publisher = Publisher or {}
+```
+
 
 # Модуль table.sorts
 ## Описание модуля table.sorts
