@@ -1,6 +1,8 @@
 do
+    ---@class Publisher
     Publisher = Publisher or {}
-    -- мета таблица для экземпляров
+
+    -- метатаблица для экземпляров
     Publisher.__meta = {}
     local meta = Publisher.__meta
     meta.__index = Publisher
@@ -18,13 +20,14 @@ do
             __call = meta.__create
         }
     )
-    
+
+    ------------------ методы класса -----------------------
     -- подписка на издателя
     function Publisher:subscribe(subscriber)
         table.insert(self.subscribers, subscriber)
     end
     
-    -- публикация
+    -- публикация издателем
     function Publisher:publish(...)
         -- local data = table.copy({...})
         local subscribers = self.subscribers
@@ -33,11 +36,12 @@ do
             subscriber(...)
         end      
     end
-    
-    function Publisher:unsubscribe(subscriber)
+
+    -- отписка от издателя
+    function Publisher:unsubscribe(subscriber) -- detach
         local subscribers = self.subscribers
-        local idxs = table.find(subscribers, subscriber)
-        for i, idx in ipairs(idxs) do
+        local indices = table.find(subscribers, subscriber)
+        for _, idx in ipairs(indices) do
             table.remove(subscribers, idx)
         end
     end
