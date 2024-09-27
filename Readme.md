@@ -188,28 +188,26 @@ Publisher = Publisher or {}
 на момент использования исходников распространялся по лицензии MIT, включен в текст лицензии.
 - [t-util](https://github.com/loominatrx/t-util/tree/main) - 
 библитека функций расширяющих стандартный набор,
-в репозитории использовались идеи из этого репозитория на момент написания распространяющегося по лицензии MIT, 
-поэтому автор включен в текст лицензии.
+в данном репозитории использовались идеи из этого репозитория.
 - [table-manual](https://www.lua.org/manual/5.4/manual.html#6.6) - 
 официальный мануал по таблицам.
 - [LuaSortingAlgorithms](https://github.com/DervexDev/LuaSortingAlgorithms) - 
 репозиторий конвертированных из python алгоритмов сортировки, 
 на момент написания распространялся без лицензии, функции были адаптированны для warcraft 3 reforged.
-
+- [lua-set](https://github.com/wscherphof/lua-set/tree/master) -
+  релизация множества для lua
 
 # Полезные источники
-- [lua-set](https://github.com/wscherphof/lua-set/tree/master) - 
-релизация множества для lua
-- [cheapack](https://github.com/nazarpunk/cheapack) - 
-совсем не дешевый упаковщик *.lua файлов в *.wct файл Warcraft 3.
-- [imp-lua-mm](https://github.com/Indaxia/imp-lua-mm) - 
-пакетный менаджер для lua, подходит для warcraft 3.
-- [luaforwindows](https://github.com/rjpcomputing/luaforwindows) - 
-репозиторий хранящий Lua.exe файл для windows.
-- [[1]](https://github.com/torch/xlua/tree/master) -
-xlua это база функций расширяющих стандартный набор, не использовалось при разработке данного репозитория,
-но очень интересная.
-- [[2]](https://www.hiveworkshop.com/threads/multidimensional-table.353717/) -
+- [[1]](https://github.com/nazarpunk/cheapack) -
+cheapack - совсем не дешевый упаковщик *.lua файлов в *.wct файл Warcraft 3.
+- [[2]](https://github.com/Indaxia/imp) IMP пакетный менеджер lua.
+- [[3]](https://github.com/Indaxia/imp-lua-mm)
+imp-lua-mm менеджер модулей (imp mm).
+- [[4]](https://github.com/torch/xlua/tree/master)
+xlua это база функций расширяющих стандартный набор.
+- [[5]](https://www.hiveworkshop.com/threads/multidimensional-table.353717/)
 MDTable класс мульти таблиц lua с синхронизацией pairs для онлайна в warcraft 3.
-- [[3]](https://hpaulkeeler.com/simulating-poisson-random-variables-survey-methods/) - 
+- [[6]](https://hpaulkeeler.com/simulating-poisson-random-variables-survey-methods/) 
 статья про то какие бывают алгоритмы пуассоновского распределения и какие используются в какой мат. системе.
+- [luaforwindows](https://github.com/rjpcomputing/luaforwindows) -
+репозиторий хранящий Lua.exe файл для windows.
