@@ -341,17 +341,15 @@ do
     ---@return table
     table.deepcopy = table.deepcopy or
     function(tbl)
-        local tbl_copy = {}
-        for key, value in pairs(tbl) do
+        return table.copy(tbl, function(value)
             if type(value) == "table" then
                 local meta = getmetatable(tbl)
-                local deepcopy = (meta ~= nil) and meta.__deepcopy or table.deepcopy
-                tbl_copy[key] = deepcopy(value)
+                local deepcopy = meta and meta.__deepcopy or table.deepcopy
+                return deepcopy(value)
             else
-                tbl_copy[key] = value
+                return value
             end
-        end
-        return setmetatable(tbl_copy, getmetatable(tbl))
+        end)
     end
 
 
