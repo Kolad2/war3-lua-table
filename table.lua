@@ -173,7 +173,7 @@ do
     ---@return table
     table.cumsum =
     function(tbl)
-        local cs = {}
+        local cs = table.empty()
         local sum = 0
         for i=1, #tbl do
             sum = sum + tbl[i]
