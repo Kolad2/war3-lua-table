@@ -1,5 +1,5 @@
 do
-    --[[war3-lua-table (20.09.2024)]]--
+    --[[war3-lua-table (27.09.2024)]]--
     ---@class table
     ---@field unique fun(tbl: table): table, table
     ---@field find fun(tbl: table, value: any): table
