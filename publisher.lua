@@ -1,15 +1,15 @@
 do
-    ---@class Publisher
-    ---@field subscribe fun(obj: Publisher, subscriber: function)
-    ---@field unsubscribe fun(obj: Publisher, subscriber: function)
-    ---@field publish fun(obj: Publisher,...)
-    ---@overload fun():Publisher
-    Publisher = Publisher or {}
+    ---@class Observer
+    ---@field subscribe fun(obj: Observer, subscriber: function)
+    ---@field unsubscribe fun(obj: Observer, subscriber: function)
+    ---@field publish fun(obj: Observer,...)
+    ---@overload fun():Observer
+    Observer = Observer or {}
 
     -- метатаблица для экземпляров
-    Publisher.__meta = {}
-    local meta = Publisher.__meta
-    meta.__index = Publisher
+    Observer.__meta = {}
+    local meta = Observer.__meta
+    meta.__index = Observer
     
     -- генератор экземлпляров класса
     meta.__create = function(cls)
@@ -19,7 +19,7 @@ do
     end
     
     -- установка метатаблицы для класса
-    setmetatable(Publisher,
+    setmetatable(Observer,
         {
             __call = meta.__create
         }
@@ -27,13 +27,13 @@ do
 
     ------------------ методы класса -----------------------
     -- подписка на издателя
-    Publisher.subscribe = function(obj, subscriber)
-        obj.subscribers:add(subscriber)
+    Observer.subscribe = function(obj, subscriber)
+        return obj.subscribers:insert(subscriber)
     end
 
 
     -- отписка от издателя
-    Publisher.unsubscribe = function(obj, subscriber) -- detach
+    Observer.unsubscribe = function(obj, subscriber) -- detach
         local subscribers = obj.subscribers
         local idx = table.find_first(subscribers, subscriber)
         if idx then table.remove(subscribers, idx) end
@@ -41,7 +41,7 @@ do
 
 
     -- публикация издателем
-    Publisher.publish = function(obj,...)
+    Observer.publish = function(obj,...)
         -- local data = table.copy({...})
         local subscribers = obj.subscribers
         for _, subscriber in ipairs(subscribers) do
