@@ -309,13 +309,21 @@ do
         return slice
     end
     
-    ---
-    table.map = function(tbl, callback,...)
-        for i, value in ipairs(tbl) do
-            tbl[i] = callback(value,...)
+    --------------- fuctional utils ------------
+    table.each = function(tbl, callback,...)
+        for key, value in pairs(tbl) do
+            callback(value,...)
         end
     end
-    ---
+    
+    table.map = function(tbl, callback,...)
+        local map = table.empty()
+        for i, value in ipairs(tbl) do
+            map[i] = callback(value,...)
+        end
+        return map
+    end
+    --------------------------------------------
 
     ---copy
     ---@param tbl table
