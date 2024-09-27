@@ -308,22 +308,6 @@ do
         end
         return slice
     end
-
-    ---copy
-    ---@param tbl table
-    ---@return table
-    table.copy = table.copy or
-    function(tbl)
-        local tbl_copy = {}
-        for key, value in pairs(tbl) do
-            if type(value) == "table" then
-                tbl_copy[key] = table.copy(value)
-            else
-                tbl_copy[key] = value
-            end
-        end
-        return setmetatable(tbl_copy, getmetatable(tbl))
-    end
     
     ---
     table.map = function(tbl, callback,...)
@@ -332,6 +316,20 @@ do
         end
     end
     ---
+
+    ---copy
+    ---@param tbl table
+    ---@return table
+    table.copy = table.copy or
+    function(tbl, callback)
+        callback = callback or function(value) return value end
+        local tbl_copy = {}
+        for i, value in ipairs(tbl) do
+            tbl_copy[i] = value
+        end
+        return setmetatable(tbl_copy, getmetatable(tbl))
+    end
+    
     
     ---deepcopy
     ---@param tbl table
