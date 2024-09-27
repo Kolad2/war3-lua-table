@@ -77,6 +77,12 @@ do
         return self
     end
 
+    set.each = function(obj, callback,...)
+        for _, item in ipairs(obj) do
+            callback(item,...)    
+        end
+    end
+    
     --- Возвращает новое множество, являющееся пересечением текущего множества и второго.
     ---@param _set set Второе множество.
     ---@return set Пересечённое множество.
