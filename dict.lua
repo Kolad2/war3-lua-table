@@ -87,7 +87,7 @@ do
     end
 
     dict.__meta = {
-        __index = object
+        __index = dict
     }
 
     ---create
