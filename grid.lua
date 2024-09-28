@@ -7,8 +7,63 @@ do
         return i, j
     end
 
+    function Grid:get_center(i, j)
+        local x_c = self.xmin + (i - 0.5) * self.cell_width
+        local y_c = self.ymin + (j - 0.5) * self.cell_height
+        return x_c, y_c
+    end
+
+    function Grid:get_cells_within_circle(x_0, y_0, r)
+        -- Определяем границы прямоугольника, охватывающего окружность
+        -- Получаем индексы ячеек, охватывающих прямоугольник
+        local i_min, j_min = self:get_indices(x_0 - r, y_0 - r)
+        local i_max, j_max = self:get_indices(x_0 + r, y_0 + r)
+        local r2 = r*r
+        local cells = {}
+
+        -- Проходим по всем ячейкам в пределах прямоугольника
+        for i = i_min, i_max do
+            for j = j_min, j_max do
+                local cell = self.cells[i][j]
+                local x_c, y_c = self:get_center(i, j)
+                -- Получаем координаты границ текущей ячейки
+                local cell_xmin = x_c - self.cell_width * 0.5
+                local cell_xmax = x_c + self.cell_width * 0.5
+                local cell_ymin = y_c - self.cell_height * 0.5
+                local cell_ymax = y_c + self.cell_height * 0.5
+
+                -- Находим ближайшую точку ячейки к центру окружности
+                local dx_closest = math.max(cell_xmin, math.min(x_0, cell_xmax)) - x_0
+                local dy_closest = math.max(cell_ymin, math.min(y_0, cell_ymax)) - y_0
+
+                -- Если расстояние меньше или равно квадрату радиуса, ячейка пересекает окружность
+                if dx_closest*dx_closest + dy_closest*dy_closest <= r2 then
+                    table.insert(cells, cell)
+                end
+            end
+        end
+
+        return cells
+    end
+
+    function Grid:get_cells_within_box(xmin, xmax, ymin, ymax)
+        local i_min, j_min = self:get_indices(xmin, ymin)
+        local i_max, j_max = self:get_indices(xmax, ymax)
+        local cells = table.empty()
+        for i = i_min, i_max do
+            for j = j_min, j_max do
+                table.insert(cells, self.cells[i][j])
+            end
+        end
+        return cells
+    end
+
     function Grid:get_cell(x, y)
         local i, j = self:get_indices(x, y)
+        if not self:is_in_bounds(i, j) then
+            print("Grid error: попытка получить ячейку за границами сетки")
+            return nil
+        end
         return self.cells[i][j]
     end
 

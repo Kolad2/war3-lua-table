@@ -1,79 +1,65 @@
-require "table.table"
-require "table.ndarray"
-require "table.grid"
 
-Searcher2d = Searcher2d or {}
+do
+    ---@class Searcher2d
+    ---@overload fun(xmin:number, xmax:number, ymin:number, ymax:number):Searcher2d
+    Searcher2d = Searcher2d or {}
 
-Searcher2d.__meta = {
-    __index = Searcher2d
-}
+    Searcher2d.__meta = {
+        __index = Searcher2d
+    }
 
-Searcher2d.create = function(cls, locations, xmin, xmax, ymin, ymax)
-    local obj = setmetatable({}, cls.__meta)
-    local cell_height = 1
-    local cell_width = 1
-    obj.grid = Grid(xmin, xmax, ymin, ymax, cell_width, cell_height)
-    for _, item in ipairs(locations) do obj:insert(item) end
-    return obj
-end
+    Searcher2d.create = function(cls, xmin, xmax, ymin, ymax)
+        local obj = setmetatable({}, cls.__meta)
+        local cell_height = 1
+        local cell_width = 1
+        obj.grid = Grid(xmin, xmax, ymin, ymax, cell_width, cell_height)
+        -- for _, item in ipairs(locations) do obj:insert(item) end
+        return obj
+    end
 
-function Searcher2d:insert(item)
-    self.grid:insert(item.x, item.y, item)
-end
+    function Searcher2d:insert(item)
+        self.grid:insert(item.x, item.y, item)
+    end
 
-function Searcher2d:is_in_box(item, xmin, xmax, ymin, ymax)
-    local x, y = item.x, item.y
-    return x > xmin and x <= xmax and
-           y > ymin and y <= ymax
-end
-
-function Searcher2d:find_in_box(xmin, xmax, ymin, ymax)
-    local i_min, j_min = self.grid:get_indices(xmin, ymin)
-    local i_max, j_max = self.grid:get_indices(xmax, ymax)
-    local cells = table.empty()
-    for i = i_min, i_max do
-        for j = j_min, j_max do
-            table.insert(cells, self.grid.cells[i][j])
+    function Searcher2d:insert_list(list_items)
+        for _, item in ipairs(list_items) do
+            self:insert(item)
         end
     end
 
-    local items = table.empty()
-    for _, cell in ipairs(cells) do
-        for _, item in ipairs(cell) do
-            if self:is_in_box(item, xmin, xmax, ymin, ymax) then
-                table.insert(items, item)
+
+    function Searcher2d:insert(item)
+        self.grid:insert(item.x, item.y, item)
+    end
+
+    function Searcher2d:is_in_box(item, xmin, xmax, ymin, ymax)
+        local x, y = item.x, item.y
+        return x > xmin and x <= xmax and
+               y > ymin and y <= ymax
+    end
+
+    function Searcher2d:is_in_range(item, x_0, y_0, r)
+        local dx, dy = item.x - x_0, item.y - y_0
+        return dx*dx + dy*dy <= r*r
+    end
+
+    function Searcher2d:get_cells_within_box(xmin, xmax, ymin, ymax)
+        return self.grid:get_cells_within_box(xmin, xmax, ymin, ymax)
+    end
+
+    function Searcher2d:find_in_box(xmin, xmax, ymin, ymax)
+        local cells = self:get_cells_within_box(xmin, xmax, ymin, ymax)
+        local items = table.empty()
+        for _, cell in ipairs(cells) do
+            for _, item in ipairs(cell) do
+                if self:is_in_box(item, xmin, xmax, ymin, ymax) then
+                    table.insert(items, item)
+                end
             end
         end
+        return items
     end
-    return items
+
+    setmetatable(Searcher2d,{ __call = Searcher2d.create})
 end
-
-setmetatable(Searcher2d,{ __call = Searcher2d.create})
-
-local xmin = -10
-local xmax = 10
-local ymin = -10
-local ymax = 10
-
-tbl = {}
-
-local pos_meta = {
-    __tostring = function(obj)
-        return "{x:"..string.format("%.1f", obj.x)..", "..
-                "y:"..string.format("%.1f", obj.y).."}"
-    end}
-
-for i = 1, 1000 do
-    local pos = setmetatable({},  pos_meta)
-    pos.x = math.random() * (xmax - xmin) + xmin
-    pos.y = math.random() * (ymax - ymin) + ymin
-    table.insert(tbl, pos)
-end
-
-
-
-local searcher = Searcher2d(tbl, xmin, xmax, ymin, ymax)
-items = searcher:find_in_box(-1,1,-1,1)
-
-print(table.tostring(items))
 
