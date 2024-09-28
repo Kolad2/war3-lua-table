@@ -27,7 +27,6 @@ do
         end
     end
 
-
     function Searcher2d:insert(item)
         self.grid:insert(item.x, item.y, item)
     end
