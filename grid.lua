@@ -12,9 +12,9 @@ do
         return self.cells[i][j]
     end
 
-    function Grid:insert(x, y,...)
+    function Grid:insert(x, y, item)
         local cell = self:get_cell(x, y)
-        table.insert(cell, #cell, ...)
+        table.insert(cell, item)
     end
 
     function Grid:get_neighbors(x, y)

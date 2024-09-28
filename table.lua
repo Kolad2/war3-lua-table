@@ -90,6 +90,7 @@ do
     ---@return table
     table.tostring = table.tostring or
     function(tbl)
+        if getmetatable(tbl) and getmetatable(tbl).__tostring then return tostring(tbl) end
         if tbl == nil then return tostring(nil) end
         if type(tbl) ~= "table" then return tostring(tbl) end
         local str = "{"
