@@ -1,8 +1,13 @@
 
 do
+    table = table or {}
+    table.tools = table.tools or {}
+    local tools = table.tools
+    tools.Searcher2d = tools.Searcher2d or {}
+    
     ---@class Searcher2d
     ---@overload fun(xmin:number, xmax:number, ymin:number, ymax:number):Searcher2d
-    Searcher2d = Searcher2d or {}
+    local Searcher2d = tools.Searcher2d or {}
 
     Searcher2d.__meta = {
         __index = Searcher2d
