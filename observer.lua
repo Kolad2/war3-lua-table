@@ -30,26 +30,41 @@ do
     )
 
     ------------------ методы класса -----------------------
-    -- подписка на издателя
-    Observer.subscribe = function(obj, subscriber)
+    -- подписка на наблюдателя
+    Observer.subscribe = function(obj, subscriber) -- attach?
         return obj.subscribers:insert(subscriber)
     end
 
-
-    -- отписка от издателя
-    Observer.unsubscribe = function(obj, subscriber) -- detach
+    -- отписка от наблюдателя
+    Observer.unsubscribe = function(obj, subscriber) -- detach?
         local subscribers = obj.subscribers
         local idx = table.find_first(subscribers, subscriber)
         if idx then table.remove(subscribers, idx) end
     end
 
-
-    -- публикация издателем
+    -- публикация подписчикам
     Observer.publish = function(obj,...)
-        -- local data = table.copy({...})
-        local subscribers = obj.subscribers
-        for _, subscriber in ipairs(subscribers) do
-            subscriber(...)
-        end      
+        obj.subscribers:each(
+            function(sub,...) sub(...) end,...)    
     end
+    
+    -- раздача копий подписчикам
+    Observer.distribute = function(obj,...)
+        local data = {...}
+        obj.subscribers:each(
+            function(sub, data)
+                local data_copy = table.deepcopy(data)                
+                sub(table.unpack(data_copy)) 
+            end,
+            data
+        )
+    end
+    
+    -- уведомление подписчиков
+    Observer.notify = function(obj)
+        obj.subscribers:each(
+            function(sub) sub() end
+        )    
+    end
+    
 end
