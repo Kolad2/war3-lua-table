@@ -1,5 +1,8 @@
 do
-    Grid2D = {}
+    table = table or {}
+    table.tools = table.tools or {} 
+    table.tools.Grid2D = table.tools.Grid2D or {}
+    local Grid2D = table.tools.Grid2D
 
     function Grid2D:get_indices(x, y)
         local j = math.floor((y - self.ymin) / self.cell_height) + 1
