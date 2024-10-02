@@ -1,10 +1,14 @@
 do
+    table = table or {}
+    table.tools = table.tools or {} 
+    table.tools.Observer = table.tools.Observer or {}
+    
     ---@class Observer
     ---@field subscribe fun(obj: Observer, subscriber: function)
     ---@field unsubscribe fun(obj: Observer, subscriber: function)
     ---@field publish fun(obj: Observer,...)
     ---@overload fun():Observer
-    Observer = Observer or {}
+    local Observer = table.tools.Observer or {}
 
     -- метатаблица для экземпляров
     Observer.__meta = {}
