@@ -106,14 +106,14 @@ do
 
 
 
-    local meta = {
+    Grid2D.__meta = {
         __index = Grid2D,
         __tostring = Grid2D.tostring
     }
 
 
     function Grid2D.create(cls, shape, xmin, xmax, ymin, ymax)
-        local grid = setmetatable({}, meta)
+        local grid = setmetatable({}, cls.__meta)
         grid.xmax = xmax
         grid.xmin = xmin
         grid.ymin = ymin
@@ -122,6 +122,7 @@ do
         grid.height = ymax - ymin
         grid.cell_width  = grid.width/shape[1]
         grid.cell_height = grid.height/shape[2]
+        grid.shape = shape
         grid.cells = NDArray(grid.shape):fill(table.empty)
         return grid
     end

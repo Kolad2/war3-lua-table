@@ -108,6 +108,7 @@ do
 
     Grid = {}
     function Grid.create(cls, xmin, xmax, ymin, ymax, cell_width, cell_height)
+        print("Grid deprecated use Grid2D")
         local grid = setmetatable({}, meta)
         grid.xmax = xmax
         grid.xmin = xmin
