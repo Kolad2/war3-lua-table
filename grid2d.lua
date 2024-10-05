@@ -1,6 +1,9 @@
 do
     table = table or {}
-    table.tools = table.tools or {} 
+    table.tools = table.tools or {}
+
+
+    ---@class Grid2D
     table.tools.Grid2D = table.tools.Grid2D or {}
     local Grid2D = table.tools.Grid2D
 
@@ -110,7 +113,7 @@ do
 
 
     Grid2D = {}
-    function Grid2D.create(cls, xmin, xmax, ymin, ymax, cell_width, cell_height)
+    function Grid2D.create(cls, shape, xmin, xmax, ymin, ymax)
         local grid = setmetatable({}, meta)
         grid.xmax = xmax
         grid.xmin = xmin
@@ -118,12 +121,8 @@ do
         grid.ymax = ymax
         grid.width  = xmax - xmin
         grid.height = ymax - ymin
-        grid.cell_width  = cell_width
-        grid.cell_height = cell_height
-        grid.shape = {
-            math.floor(grid.height / grid.cell_height + 1),
-            math.floor(grid.width  / grid.cell_width  + 1)
-        }
+        grid.cell_width  = grid.width/shape[1]
+        grid.cell_height = grid.height/shape[2]
         grid.cells = NDArray(grid.shape):fill(table.empty)
         return grid
     end
