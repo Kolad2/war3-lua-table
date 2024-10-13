@@ -81,7 +81,7 @@ do
 
     -- Очистка словаря
     function dict:clear()
-        for key in pairs(self.data) do
+        for key, _ in pairs(self.data) do
             self.data[key] = nil
         end
     end
