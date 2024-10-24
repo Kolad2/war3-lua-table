@@ -59,6 +59,10 @@ do
         return false
     end
 
+    function set:get_last()
+        if #self == 0 then return nil end
+        return self[#self]
+    end
 
     function set:get_random()
         return table.get_random(self)
