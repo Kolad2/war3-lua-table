@@ -65,6 +65,8 @@ do
     end
 
     function set:remove_random()
+        local item = self:get_random()
+        if item == nil then return nil end
         return self:remove(self:get_random())
     end
 
