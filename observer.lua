@@ -41,8 +41,7 @@ do
     -- отписка от наблюдателя
     Observer.unsubscribe = function(obj, subscriber) -- detach?
         local subscribers = obj.subscribers
-        local idx = table.find_first(subscribers, subscriber)
-        if idx then table.remove(subscribers, idx) end
+        subscribers:remove(subscriber)
     end
 
     -- публикация подписчикам
