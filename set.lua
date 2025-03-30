@@ -56,7 +56,7 @@ do
         else
             self.__index_dict:remove(item)
         end
-        return false
+        return true
     end
 
     function set:get_last()
