@@ -112,6 +112,7 @@ do
     }
 
 
+    ---@return Grid2D
     function Grid2D.create(cls, shape, xmin, xmax, ymin, ymax)
         local grid = setmetatable({}, cls.__meta)
         grid.xmax = xmax
