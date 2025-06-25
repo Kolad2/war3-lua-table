@@ -123,9 +123,12 @@ do
 
 
     function set:clear()
-        for i, item in ipairs(self) do
+        print("set:clear()")
+        local len = #self
+        for i = 1, len do
+            local item = self[i]
             self[i] = nil
-            self.__index_dict[item] = nil
+            self.__index_dict:remove(item)
         end
     end
 
