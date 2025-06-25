@@ -123,7 +123,6 @@ do
 
 
     function set:clear()
-        print("set:clear()")
         local len = #self
         for i = 1, len do
             local item = self[i]
