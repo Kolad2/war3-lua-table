@@ -122,6 +122,14 @@ do
     end
 
 
+    function set:clear()
+        for i, item in ipairs(self) do
+            self[i] = nil
+            self.__index_dict[item] = nil
+        end
+    end
+
+
     set.object_meta = {
         __index = set,
         __tostring = table.tostring,
