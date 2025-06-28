@@ -12,45 +12,53 @@ do
     
 
     local Observer = table.tools.Observer or {} ---@type Observer
-
     -- метатаблица для экземпляров
     Observer.__meta = {}
-    local meta = Observer.__meta
-    meta.__index = Observer
-    
-    -- генератор экземлпляров класса
-    meta.__create = function(cls)
+    Observer.__meta.__index = Observer
+
+    ------------------ статические методы -----------------------
+
+    ---@param cls Observer
+    function Observer.init(cls)
+        cls.publish_callback = function(sub,...) sub(...) end
+        cls.notify_callback  = function(sub) sub() end
+        return cls
+    end
+
+    ---@param cls Observer
+    function Observer.__create(cls)
         local obj = setmetatable({}, cls.__meta)
         obj.subscribers = set()
         return obj
     end
-    
-    -- установка метатаблицы для класса
-    setmetatable(Observer,
-        {
-            __call = meta.__create
-        }
-    )
+
+    ---@param cls Observer
+    function Observer.create(cls)
+        cls.create = cls.__create
+        cls:init()
+        return cls.__create(cls)
+    end
 
     ------------------ методы класса -----------------------
     -- подписка на наблюдателя
-    Observer.subscribe = function(obj, subscriber) -- attach?
-        return obj.subscribers:insert(subscriber)
+    ---@param subscriber function
+    function Observer:subscribe(subscriber)
+        return self.subscribers:insert(subscriber)
     end
 
     -- отписка от наблюдателя
-    Observer.unsubscribe = function(obj, subscriber) -- detach?
-        local subscribers = obj.subscribers
-        subscribers:remove(subscriber)
+    ---@param subscriber function
+    function Observer:unsubscribe(subscriber)
+        self.subscribers:remove(subscriber)
     end
 
     -- публикация подписчикам
-    Observer.publish = function(obj,...)
-        obj.subscribers:each(
-            function(sub,...) sub(...) end,...)    
+    function Observer:publish(...)
+        self.subscribers:each(self.publish_callback,...)
     end
     
     -- раздача копий подписчикам
+    ---@param obj Observer
     Observer.distribute = function(obj,...)
         local data = {...}
         obj.subscribers:each(
@@ -63,10 +71,13 @@ do
     end
     
     -- уведомление подписчиков
-    Observer.notify = function(obj)
-        obj.subscribers:each(
-            function(sub) sub() end
-        )    
+    function Observer:notify()
+        self.subscribers:each(self.notify_callback)
     end
-    
+
+    -- установка метатаблицы для класса
+    setmetatable(Observer,{
+                __call = Observer.create
+            })
+
 end
