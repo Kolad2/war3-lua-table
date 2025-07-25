@@ -7,12 +7,12 @@ do
     ---@return integer
     function deque:size()
         local obj = self
-        if obj._head == -1 then
+        if obj._head == 0 then
             return 0
         elseif obj._head <= obj._tail then
-            return obj._tail - obj._head + 1
+            return obj._max_size - obj._tail + obj._head + 1
         else
-            return obj._max_size - obj._head + obj._tail + 1
+            return obj._head - obj._tail + 1
         end
     end
 
@@ -25,7 +25,7 @@ do
     --- Проверяет, заполнена ли очередь
     ---@return boolean
     function deque:is_full()
-        return (self._tail + 1) % self._max_size == self._head
+        return self._max_size == self:size()
     end
 
     --- Добавляет элемент в начало очереди
@@ -80,7 +80,7 @@ do
             self._head = 0
             self._tail = 0
         else
-            self._head = self._head == 1 and self._head or self._head - 1
+            self._head = self._head == 1 and self._max_size or self._head - 1
         end
 
         return item
@@ -93,8 +93,8 @@ do
             return nil
         end
 
-        local item = self[self._tail + 1]
-        self[self._tail + 1] = nil
+        local item = self[self._tail]
+        self[self._tail] = nil
 
         if self._head == self._tail then
             self._head = 0
@@ -151,7 +151,7 @@ do
                     if #result > 1 then
                         result = result .. ", "
                     end
-                    result = result .. tostring(deque[current + 1])  -- +1 потому что в Lua индексация с 1
+                    result = result .. tostring(deque[current])
                     if current == deque._tail then
                         break
                     end
