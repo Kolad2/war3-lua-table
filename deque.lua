@@ -19,7 +19,7 @@ do
     --- Проверяет, пуста ли очередь
     ---@return boolean
     function deque:is_empty()
-        return self._head == -1
+        return self._head == 0
     end
 
     --- Проверяет, заполнена ли очередь
@@ -38,13 +38,13 @@ do
         end
 
         if self:is_empty() then
-            self._head = 0
-            self._tail = 0
+            self._head = 1
+            self._tail = 1
         else
-            self._head = (self._head - 1 + self._max_size) % self._max_size
+            self._head = self._head == self._max_size and 1 or self._head + 1
         end
 
-        self[self._head + 1] = item  -- +1 потому что в Lua индексация с 1
+        self[self._head] = item
         return true
     end
 
@@ -57,13 +57,13 @@ do
         end
 
         if self:is_empty() then
-            self._head = 0
-            self._tail = 0
+            self._head = 1
+            self._tail = 1
         else
-            self._tail = (self._tail + 1) % self._max_size
+            self._tail = self._tail == 1 and self._max_size or self._tail - 1
         end
 
-        self[self._tail + 1] = item  -- +1 потому что в Lua индексация с 1
+        self[self._tail] = item
         return true
     end
 
@@ -74,15 +74,14 @@ do
             return nil
         end
 
-        local item = self[self._head + 1]
-        self[self._head + 1] = nil
+        local item = self[self._head]
+        self[self._head] = nil
 
         if self._head == self._tail then
-            -- Очередь становится пустой
-            self._head = -1
-            self._tail = -1
+            self._head = 0
+            self._tail = 0
         else
-            self._head = (self._head + 1) % self._max_size
+            self._head = self._head == 1 and self._head or self._head - 1
         end
 
         return item
@@ -99,11 +98,10 @@ do
         self[self._tail + 1] = nil
 
         if self._head == self._tail then
-            -- Очередь становится пустой
-            self._head = -1
-            self._tail = -1
+            self._head = 0
+            self._tail = 0
         else
-            self._tail = (self._tail - 1 + self._max_size) % self._max_size
+            self._tail = self._tail == self._max_size and 1 or self._tail + 1
         end
 
         return item
@@ -115,7 +113,7 @@ do
         if self:is_empty() then
             return nil
         end
-        return self[self._head + 1]  -- +1 потому что в Lua индексация с 1
+        return self[self._head]
     end
 
     --- Возвращает элемент из конца очереди без удаления
@@ -124,7 +122,7 @@ do
         if self:is_empty() then
             return nil
         end
-        return self[self._tail + 1]  -- +1 потому что в Lua индексация с 1
+        return self[self._tail]  -- +1 потому что в Lua индексация с 1
     end
 
     --- Очищает очередь
@@ -139,8 +137,8 @@ do
                 current = (current + 1) % self._max_size
             until false
         end
-        self._head = -1
-        self._tail = -1
+        self._head = 0
+        self._tail = 0
     end
 
     deque.object_meta = {
@@ -166,6 +164,14 @@ do
         end
     }
 
+    function deque:inc(i)
+        return i < self._max_size and i + 1 or 1
+    end
+
+    function deque:dec(i)
+        return i > 1 and i - 1 or self._max_size
+    end
+
     --- Создаёт новую очередь с ограниченным размером
     ---@param max_size integer Максимальный размер очереди
     ---@return deque Новая очередь
@@ -173,7 +179,6 @@ do
         if not max_size or max_size <= 0 then
             print("Ошибка: Размер очереди должен быть положительным числом")
         end
-
         local obj = {} ---@type deque
         obj._max_size = max_size
         obj._head = 0
