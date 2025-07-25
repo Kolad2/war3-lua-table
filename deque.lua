@@ -23,7 +23,6 @@ do
     end
 
     --- Проверяет, заполнена ли очередь
-    ---@param obj deque
     ---@return boolean
     function deque:is_full()
         return (self._tail + 1) % self._max_size == self._head
@@ -163,14 +162,6 @@ do
             return result
         end
     }
-
-    function deque:inc(i)
-        return i < self._max_size and i + 1 or 1
-    end
-
-    function deque:dec(i)
-        return i > 1 and i - 1 or self._max_size
-    end
 
     --- Создаёт новую очередь с ограниченным размером
     ---@param max_size integer Максимальный размер очереди
