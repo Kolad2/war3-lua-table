@@ -126,7 +126,8 @@ do
 
     deque.object_meta = {
         __index = deque,
-        __len = function(deque) return deque:size() end
+        ---@param obj deque
+        __len = function(obj) return obj:size() end
     }
 
     --- Создаёт новую очередь с ограниченным размером
