@@ -6,13 +6,12 @@ do
     --- Возвращает текущее количество элементов в очереди
     ---@return integer
     function deque:size()
-        local obj = self
-        if obj._head == 0 then
+        if self._head == 0 then
             return 0
-        elseif obj._head <= obj._tail then
-            return obj._max_size - obj._tail + obj._head + 1
+        elseif self._head < self._tail then
+            return self._max_size - self._tail + self._head + 1
         else
-            return obj._head - obj._tail + 1
+            return self._head - self._tail + 1
         end
     end
 
@@ -121,46 +120,13 @@ do
         if self:is_empty() then
             return nil
         end
-        return self[self._tail]  -- +1 потому что в Lua индексация с 1
+        return self[self._tail]
     end
 
-    --- Очищает очередь
-    function deque:clear()
-        if not self:is_empty() then
-            local current = self._head
-            repeat
-                self[current + 1] = nil  -- +1 потому что в Lua индексация с 1
-                if current == self._tail then
-                    break
-                end
-                current = (current + 1) % self._max_size
-            until false
-        end
-        self._head = 0
-        self._tail = 0
-    end
 
     deque.object_meta = {
         __index = deque,
-        __len = function(deque) return deque:size() end,
-        __tostring = function(deque)
-            local result = "{"
-            if not deque:is_empty() then
-                local current = deque._head
-                repeat
-                    if #result > 1 then
-                        result = result .. ", "
-                    end
-                    result = result .. tostring(deque[current])
-                    if current == deque._tail then
-                        break
-                    end
-                    current = (current + 1) % deque._max_size
-                until false
-            end
-            result = result .. "}"
-            return result
-        end
+        __len = function(deque) return deque:size() end
     }
 
     --- Создаёт новую очередь с ограниченным размером
