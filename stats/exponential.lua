@@ -18,6 +18,7 @@ do
         local obj = setmetatable({}, cls)
         self.cdf_min = 0
         self.cdf_max = 1
+        self.lambda = lambda
         if min then self.cdf_min = cdf(min, lambda) end
         if max then self.cdf_max = cdf(max, lambda) end
         self.norm = self.cdf_max - self.cdf_min
@@ -26,11 +27,12 @@ do
 
     function exp:rvs()
         local v = 1 - (math.random() * self.norm + self.cdf_min)
-        return
+        v = - self.lambda * math.log(v)
+        return v
     end
 
     function exp:cdf()
-
+        return cdf(x, self.lambda)
     end
 
     function exp:pdf()
