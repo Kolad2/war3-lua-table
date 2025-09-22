@@ -29,7 +29,7 @@ do
     ---has
     ---@param key number|string
     function dict:has(key)
-        return self.data[key] ~= nil
+        return (self.data[key] or false) ~= false
     end
 
     ---get
