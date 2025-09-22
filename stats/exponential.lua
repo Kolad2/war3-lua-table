@@ -16,6 +16,8 @@ do
     ---@return DistributionExponential
     function exp.create(cls, lambda, min, max)
         local obj = setmetatable({}, cls)
+        self.min = min
+        self.max = max
         self.cdf_min = 0
         self.cdf_max = 1
         self.lambda = lambda
@@ -31,12 +33,16 @@ do
         return v
     end
 
-    function exp:cdf()
-        return cdf(x, self.lambda)
+    function exp:cdf(x)
+        if x < self.min then return 0 end
+        if x > self.max then return 1 end
+        return (cdf(x, self.lambda) - self.cdf_min)/self.norm
     end
 
-    function exp:pdf()
-
+    function exp:pdf(x)
+        if x < self.min then return 0 end
+        if x > self.max then return 0 end
+        return pdf(x, self.lambda)/self.norm
     end
 
     setmetatable(exp, {__call = exp.create})
