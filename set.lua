@@ -17,7 +17,7 @@ do
             return false
         end
         table.insert(self, item)
-        self.__index_dict:set(item, self)
+        self.__index_dict:set(item, #self)
         return true
     end
 
