@@ -1,7 +1,6 @@
 do
     ---@class set
     ---@field remove fun(self:set, item:any): boolean
-    ---@field insert fun(self:set, item:any): boolean
     ---@field add fun(self:set, item:any): boolean
     ---@field has fun(self:set, item:any): boolean
     ---@field get_random fun(self:set): any
@@ -11,15 +10,14 @@ do
     ---@overload fun(tbl:table): set
     set = set or {}
 
-    ---@param obj set
     ---@param item any
     ---@return boolean
-    set.insert = function(obj, item)
-        if obj.__index_dict:has(item) then
+     function set:insert(item)
+        if self.__index_dict:has(item) then
             return false
         end
-        table.insert(obj, item)
-        obj.__index_dict:set(item, #obj)
+        table.insert(self, item)
+        self.__index_dict:set(item, self)
         return true
     end
 
