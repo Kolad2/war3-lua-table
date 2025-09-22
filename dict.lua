@@ -1,7 +1,7 @@
 do
     ---@class dict
     ---@field create fun(self:dict)
-    ---@field set fun(self:dict, key:number|string, item:any):void
+    ---@field set fun(self:dict, key:any, item:any):void
     ---@field remove fun(self:dict, key:number|string):void
     ---@field has fun(self:dict, key:number|string):boolean
     ---@field get fun(self:dict, key:number|string):any
@@ -14,33 +14,33 @@ do
 
 
     ---set
-    ---@param key number|string
+    ---@param key any
     ---@param item any
     function dict:set(key, item)
         self.data[key] = item
     end
 
     ---remove
-    ---@param key number|string
+    ---@param key any
     function dict:remove(key)
         self.data[key] = nil
     end
 
     ---has
-    ---@param key number|string
+    ---@param key any
     function dict:has(key)
         return (self.data[key] or false) ~= false
     end
 
     ---get
-    ---@param key number|string
+    ---@param key any
     ---@return any
     function dict:get(key)
         return self.data[key]
     end
 
     -- Итератор
-    ---@param callback fun(key:number|string, value:any)
+    ---@param callback fun(key:any, value:any)
     function dict:each(callback)
         for key, value in pairs(self.data) do
             callback(key, value)
