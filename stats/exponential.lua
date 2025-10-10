@@ -16,14 +16,14 @@ do
     ---@return DistributionExponential
     function exp.create(cls, lambda, min, max)
         local obj = setmetatable({}, cls)
-        self.min = min
-        self.max = max
-        self.cdf_min = 0
-        self.cdf_max = 1
-        self.lambda = lambda
-        if min then self.cdf_min = cdf(min, lambda) end
-        if max then self.cdf_max = cdf(max, lambda) end
-        self.norm = self.cdf_max - self.cdf_min
+        obj.min = min
+        obj.max = max
+        obj.cdf_min = 0
+        obj.cdf_max = 1
+        obj.lambda = lambda
+        if min then obj.cdf_min = cdf(min, lambda) end
+        if max then obj.cdf_max = cdf(max, lambda) end
+        obj.norm = obj.cdf_max - obj.cdf_min
         return obj
     end
 
